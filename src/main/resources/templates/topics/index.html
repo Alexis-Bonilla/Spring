@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+	<div th:switch="${tsscTopics}" class="container my-5">
+		<div class="row">
+			<div class="col-md-12">
+				<div th:case="*">
+					<center>
+						<h1 class="text-primary">Gestion de Temas</h1>
+					</center>
+					<table class="table">
+						<thead class="thead">
+							<tr>
+								<center>
+									<th>Nombre</th>
+									<th>Descripcion</th>
+									<th>Grupos por defecto</th>
+									<th>Sprints por defecto</th>
+									<th>Prefijo de grupos</th>
+									<th>Editar</th>
+									<th>Borrar</th>
+							</tr>
+						<tbody>
+							<tr th:each="topic : ${tsscTopics}">
+								<td class="text-info" th:text="${topic.name}"></td>
+								<td class="text-info" th:text="${topic.description}"></td>
+								<td class="text-info" th:text="${topic.defaultGroups}"></td>
+								<td class="text-info" th:text="${topic.defaultSprints}"></td>
+								<td class="text-info" th:text="${topic.groupPrefix}"></td>
+								<td><a th:href="@{/topics/edit/{id}(id=${topic.id})}"
+									class="btn btn-primary"><i class="far fa-edit"></i></a></td>
+								<td><a th:href="@{/topics/del/{id}(id=${topic.id})}"
+									class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<h2 th:case="null">Vacío</h2>
+
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<p class="my-5 mx-5">
+					<a href="/topics/add" class="btn btn-outline-primary">Agregar <i
+						class="fas fa-drum-steelpan"></i>
+					</a>
+
+					<a href="/" class="btn btn-outline-primary">Regresar <i
+						class="fas fa-chevron-circle-left"></i></a>
+				</p>
+			</div>
+			
+		</div>
+
+	</div>
+</body>
+</html>

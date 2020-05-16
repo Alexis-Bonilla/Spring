@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+	<div th:switch="${tsscGames}" class="container my-5">
+		<div class="row">
+			<div class="col-md-12">
+				<div th:case="*">
+					<center>
+						<h1 class="text-primary">Gestion de juegos</h1>
+					</center>
+					<table class="table">
+						<thead class="thead">
+							<tr>
+								<th>Nombre</th>
+								<th>Fecha</th>
+								<th>Hora</th>
+								<th>Grupos</th>
+								<th>Sprints</th>
+								<th>Inicio</th>
+								<th>Editar</th>
+								<th>Borrar</th>
+								<th>Historias</th>
+								<th>Tema</th>
+							</tr>
+						<tbody>
+
+
+							<tr th:each="game : ${tsscGames}">
+								<td class="text-info" th:text="${game.name}"></td>
+								<td class="text-info" th:text="${game.scheduledDate}"></td>
+								<td class="text-info" th:text="${game.scheduledTime}"></td>
+								<td class="text-info" th:text="${game.nGroups}"></td>
+								<td class="text-info" th:text="${game.nSprints}"></td>
+								<td class="text-info" th:text="${game.startTime}"></td>
+								<td><a th:href="@{/games/edit/{id}(id=${game.id})}"
+									class="btn btn-primary"><i class="far fa-edit"></i></a></td>
+								<td><a th:href="@{/games/del/{id}(id=${game.id})}"
+									class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+								<td><span th:if=${!game.tsscStories.isEmpty()}> <a
+										th:href="@{/games/list/{id}(id=${game.id})}"
+										class="btn btn-primary"><i class="far fa-file-image"></i></a>
+
+								</span> <span th:if=${game.tsscStories.isEmpty()}>
+								
+								
+								 <a
+										class="btn btn-secondary"><i class="far fa-file-image">
+										</i>
+										</a>
+
+								</span></td>
+								<td><span th:if=${game.tsscTopic!=null}> <a
+										th:href="@{/topics/edit/{id}(id=${game.tsscTopic.id})}"
+										class="btn btn-primary"><i class="fas fa-stopwatch"></i></a>
+
+								</span> <span th:if=${game.tsscTopic==null}> <a
+										class="btn btn-secundary"><i class="fas fa-stopwatch"></i></a>
+
+								</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div>
+					<p class="my-5 mx-2">
+
+						<a href="/games/add" class="btn btn-outline-primary">Agregar<i
+							class="fas fa-plus mx-1"></i>
+						</a> <a href="/" class="btn btn-outline-primary">Regresar<i
+							class="fas fa-chevron-circle-left"></i></a>
+
+					</p>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
