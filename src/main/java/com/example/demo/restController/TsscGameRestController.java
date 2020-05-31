@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.model.TsscGame;
@@ -18,7 +19,7 @@ import com.example.demo.model.TsscStory;
 import com.example.demo.model.TsscTopic;
 import com.example.demo.service.TsscGameService;
 
-
+@RestController
 public class TsscGameRestController {
 	
 	@Autowired
