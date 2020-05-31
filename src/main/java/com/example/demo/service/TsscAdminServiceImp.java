@@ -37,6 +37,11 @@ public class TsscAdminServiceImp implements TsscAdminService{
 	public void delete(TsscAdmin delete) {
 		adminDao.delete(delete);
 	}
+
+	@Override
+	public Iterable<TsscAdmin> findAll() {
+		return adminDao.findAll();
+	}
 	
 	
 

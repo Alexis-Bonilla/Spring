@@ -11,7 +11,7 @@ public interface TsscGameService {
 	public boolean existById (long id);
 	public TsscGame findById(long id);
 	boolean save2(TsscGame game, long id);
-
-
+	public Iterable<TsscGame> findAll();
+	public void delete(TsscGame game);
 	
 }

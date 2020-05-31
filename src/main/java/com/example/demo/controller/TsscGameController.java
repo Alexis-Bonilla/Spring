@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.delegate.TsscGameDelegate;
+import com.example.demo.delegate.TsscTopicDelegate;
 import com.example.demo.model.TsscGame;
 import com.example.demo.service.TsscGameServiceImp;
 
@@ -18,14 +20,14 @@ import com.example.demo.service.TsscTopicServiceImp;
 public class TsscGameController {
 
 	@Autowired
-	TsscGameServiceImp gameService ;
+	TsscGameDelegate gameDelegate ;
 	@Autowired
-	TsscTopicServiceImp topicService;
+	TsscTopicDelegate topicDelegate;
 	
 	
 	@GetMapping("/games/")
 	public String indexGame(Model model) {
-		model.addAttribute("tsscGames", gameService.findAll());
+		model.addAttribute("tsscGames", gameDelegate.findAll());
 		return "games/index";
 	}
 	
@@ -34,7 +36,7 @@ public class TsscGameController {
 	public String addGame(Model model) {
 		
 		model.addAttribute("tsscGame", new TsscGame());
-		model.addAttribute("tsscTopics", topicService.findAll());
+		model.addAttribute("tsscTopics", topicDelegate.findAll());
 		
 		return "games/add-game";
 	}
@@ -54,7 +56,7 @@ public class TsscGameController {
 				model.addAttribute("adminPasswordTsscGame", tsscGame.getAdminPassword());
 				model.addAttribute("userPasswordTsscGame", tsscGame.getUserPassword());
 				model.addAttribute("guestPasswordTsscGame", tsscGame.getGuestPassword());
-				model.addAttribute("tsscTopics", topicService.findAll());
+				model.addAttribute("tsscTopics", topicDelegate.findAll());
 
 				return "games/add-game";
 			} else {
@@ -63,11 +65,11 @@ public class TsscGameController {
 
 					if (tsscGame.getTsscTopic() == null) {
 
-						gameService.save(tsscGame);
+						gameDelegate.save(tsscGame);
 
 					} else {
 
-						gameService.save(tsscGame);
+						gameDelegate.save(tsscGame);
 					}
 
 				
@@ -76,7 +78,7 @@ public class TsscGameController {
 			}
 		} else {
 
-			model.addAttribute("games", gameService.findAll());
+			model.addAttribute("games", gameDelegate.findAll());
 			return "games/index";
 		}
 
@@ -86,7 +88,7 @@ public class TsscGameController {
 	
 	@GetMapping("/games/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-		TsscGame tsscGame = gameService.findById(id);
+		TsscGame tsscGame = gameDelegate.findById(id);
 		
 		model.addAttribute("tsscGame", tsscGame);
 		model.addAttribute("nameTsscGame", tsscGame.getName());
@@ -97,7 +99,7 @@ public class TsscGameController {
 		model.addAttribute("adminPasswordTsscGame", tsscGame.getAdminPassword());
 		model.addAttribute("userPasswordTsscGame", tsscGame.getUserPassword());
 		model.addAttribute("guestPasswordTsscGame", tsscGame.getGuestPassword());
-		model.addAttribute("tsscTopics", topicService.findAll());
+		model.addAttribute("tsscTopics", topicDelegate.findAll());
 		
 		return "games/update-game";
 		
@@ -109,9 +111,9 @@ public class TsscGameController {
 		if(action != null && !action.equals(" ")) {
 			
 			if (tsscGame.getTsscTopic() == null) {
-				gameService.save(tsscGame);
+				gameDelegate.save(tsscGame);
 			}else {
-				gameService.save(tsscGame);
+				gameDelegate.save(tsscGame);
 				
 			}
 			
@@ -127,7 +129,7 @@ public class TsscGameController {
 			model.addAttribute("adminPasswordTsscGame", tsscGame.getAdminPassword());
 			model.addAttribute("userPasswordTsscGame", tsscGame.getUserPassword());
 			model.addAttribute("guestPasswordTsscGame", tsscGame.getGuestPassword());
-			model.addAttribute("tsscTopics",topicService.findAll());
+			model.addAttribute("tsscTopics",topicDelegate.findAll());
 			
 			return "games/update-game";
 		}
@@ -145,24 +147,18 @@ public class TsscGameController {
 
 	@GetMapping("/games/del/{id}")
 	public String deleteGame(@PathVariable("id") Long id) {
-		TsscGame tsscGame = gameService.findById(id);
-		gameService.deleteTsscGame(tsscGame);
+		TsscGame tsscGame = gameDelegate.findById(id);
+		gameDelegate.delete(tsscGame.getId());
 		
 		return "redirect:/games/";
 	}
 	
 	@GetMapping("/games/list/{id}")
 	public String showListStories(@PathVariable("id") long id, Model model) {
-		TsscGame tsscGame = gameService.findById(id);
+		TsscGame tsscGame = gameDelegate.findById(id);
 		model.addAttribute("tsscGame", tsscGame);
 		model.addAttribute("stories", tsscGame.getTsscStories());
 		return "games/list-stories";
 	}
-	
-
-	
-	
-	
-
-	
+		
 }

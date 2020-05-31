@@ -146,18 +146,12 @@ public class TsscGameServiceImp implements TsscGameService {
 	public void deleteTsscGame(TsscGame tsscGame) {
 		gameDao.delete(tsscGame);
 	}
+
+
+
+	@Override
+	public void delete(TsscGame game) {	
+		gameDao.delete(game);
+	}
 	
-	
-
-
-
-
-
-
-
-	
-	
-	
-	
-
 }
