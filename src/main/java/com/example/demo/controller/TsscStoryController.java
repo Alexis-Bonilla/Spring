@@ -10,36 +10,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.example.demo.delegate.TsscStoryDelegate;
 import com.example.demo.model.TsscStory;
 import com.example.demo.service.TsscGameServiceImp;
 import com.example.demo.service.TsscStoryServiceImp;
 
 
-@RestController
+@Controller
 public class TsscStoryController {
+	
+	
 	@Autowired
 	private TsscGameServiceImp gameService ;
+
 	@Autowired
-	private TsscStoryServiceImp storyService; 
+	TsscStoryDelegate storyDelegate;
 	
 	
 	
 	
-	@RequestMapping("/stories")
-	public Iterable<TsscStory> getCars() {
-		return storyService.findAll();
-	}
-	
-	
-	
-	
-	
-	/*@GetMapping("/stories/")
+	@GetMapping("/stories/")
 	public String indexStory(Model model) {
-		model.addAttribute("tsscStories", storyService.findAll());
+		model.addAttribute("tsscStories", storyDelegate.findAll());
 		return "stories/index";
-	}*/
+	}
 	
 	@GetMapping("/stories/add")
 	public String addStory(Model model) {
@@ -66,13 +60,13 @@ public class TsscStoryController {
 			} else {
 
 					gameService.findById(tsscStory.getTsscGame().getId());		
-					storyService.save(tsscStory);
+					storyDelegate.save(tsscStory);
 
 				return "redirect:/stories/";
 			}
 		} else {
 
-			model.addAttribute("stories", storyService.findAll());
+			model.addAttribute("stories", storyDelegate.findAll());
 			return "stories/index";
 		}
 
@@ -80,7 +74,7 @@ public class TsscStoryController {
 	
 	@GetMapping("/stories/edit/{id}")
 	public String showUpdateForm(Model model,@PathVariable("id") long id) {
-		TsscStory tsscStory = storyService.findById(id);
+		TsscStory tsscStory = storyDelegate.findById(id);
 
 		if (tsscStory == null)
 			throw new IllegalArgumentException("Invalid story Id:" + id);
@@ -118,7 +112,7 @@ public class TsscStoryController {
 		if (action != null && !action.equals("Cancel")) {
 
 			try {
-				storyService.save(tsscStory);
+				storyDelegate.save(tsscStory);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -130,8 +124,7 @@ public class TsscStoryController {
 	
 	@GetMapping("/stories/del/{id}")
 	public String deleteGame(@PathVariable("id") long id) {
-		TsscStory tsscStory =storyService.findById(id);
-		storyService.deleteTsscStory(tsscStory);
+		storyDelegate.delete(id);
 		return "redirect:/stories/";
 	}
 	
