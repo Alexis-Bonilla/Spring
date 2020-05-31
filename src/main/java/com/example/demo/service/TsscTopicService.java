@@ -11,5 +11,8 @@ public interface TsscTopicService {
 	public boolean existById(long id);
 	public boolean updateDefaultGroups(long id,long groups);
 	public boolean updateDefaultSprints(long id,long sprints);
+	public void clearTopics();
+	public Iterable<TsscTopic> findAll();
+	public void deleteTsscTopic(TsscTopic tsscTopic);
 	
 }

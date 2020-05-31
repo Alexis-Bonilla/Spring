@@ -37,15 +37,13 @@ public class TsscTopic implements Serializable {
     @JsonIgnore
     private List<TsscTimecontrol> tsscTimecontrols;
 
-
-
 	@Min(value = 1, message = "El valor de lo sprints debe ser mayor a 0", groups=TopicValidated.class)
 	@Column(name = "DEFAULT_SPRINTS")
 	private long defaultSprints;
 	@Min(value = 1, message = "El valor de los grupos debe ser mayor a 0", groups=TopicValidated.class)
 	@Column(name = "DEFAULT_GROUPS")
 	private long defaultGroups;
-	@NotBlank(message = "El prefijo no puede estar vacío", groups=TopicValidated.class)
+	@NotBlank(message = "El prefijo no puede estar vacï¿½o", groups=TopicValidated.class)
 	@Column(name = "GROUP_PREFIX")
 	private String groupPrefix;
 

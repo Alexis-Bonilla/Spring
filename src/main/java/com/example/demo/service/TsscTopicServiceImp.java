@@ -59,7 +59,7 @@ public class TsscTopicServiceImp implements TsscTopicService{
 		repository.deleteAll();
 	}
 
-	public Object findAll() {
+	public Iterable<TsscTopic> findAll() {
 		return repository.findAll();
 	}
 

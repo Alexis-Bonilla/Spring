@@ -7,19 +7,26 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.TsscTopic;
 import com.example.demo.service.TsscTopicServiceImp;
 
 
 
-@Controller
+@RestController
 public class TsscTopicController {
 
 	@Autowired
 	TsscTopicServiceImp  tsscTopicServiceImp;
 	
+	
+	@RequestMapping("/topics/")
+	 public Iterable<TsscTopic> getTopics() {
+		return tsscTopicServiceImp.findAll();
+	 }
 	
 	@GetMapping("/topics/")
 	public String indexUser(Model model) {
