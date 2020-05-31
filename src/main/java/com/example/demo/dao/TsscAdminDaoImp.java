@@ -4,10 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
-
 import com.example.demo.model.TsscAdmin;
 
 

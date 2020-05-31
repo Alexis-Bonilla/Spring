@@ -27,7 +27,7 @@
 	</bean>
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	<context:component-scan base-package="com.computacion.taller.repository" />
-	<jpa:repositories base-package="com.computacion.taller.repository" />
+	<context:component-scan base-package="com.example.demo.repository" />
+	<jpa:repositories base-package="com.example.demo.repository" />
 
 </beans>

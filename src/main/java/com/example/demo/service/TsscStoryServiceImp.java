@@ -35,6 +35,7 @@ public class TsscStoryServiceImp implements TsscStoryService {
 	}
 
 	@Override
+	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean save(TsscStory story) {
 		boolean check = (story.getBusinessValue().compareTo(BigDecimal.ZERO)==1 
 				&& story.getInitialSprint().compareTo(BigDecimal.ZERO)==1
