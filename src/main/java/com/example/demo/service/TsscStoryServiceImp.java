@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.TsscStory;
@@ -10,17 +11,22 @@ import com.example.demo.repository.TsscGameRepository;
 import com.example.demo.repository.TsscStoryRepository;
 
 import lombok.extern.java.Log;
+
+
 @Log
 @Service
 public class TsscStoryServiceImp implements TsscStoryService {
 	
+
 	private TsscStoryRepository repository;
 	private TsscGameRepository gameRepository;
 	
-
+	@Autowired
 	public TsscStoryServiceImp(TsscStoryRepository repository, TsscGameRepository gameRepository) {
 		this.repository= repository;
 		this.gameRepository=gameRepository;
+
+		
 	}
 
 	@Override

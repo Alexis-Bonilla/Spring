@@ -10,6 +10,7 @@ public interface TsscStoryService {
 	public boolean save(TsscStory story);
 	public boolean existById (long id);
 	public TsscStory findById(long id);
-	
+	public Iterable<TsscStory> findAll();
+	public void deleteTsscStory(TsscStory tsscStory);
 	
 }

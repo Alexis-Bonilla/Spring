@@ -10,6 +10,7 @@ import com.example.demo.repository.TsscTopicRepository;
 @Service
 public class TsscTopicServiceImp implements TsscTopicService{
 	
+	
 	private TsscTopicRepository repository;
 	
 	@Autowired

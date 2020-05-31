@@ -7,14 +7,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.TsscStory;
 import com.example.demo.service.TsscGameServiceImp;
 import com.example.demo.service.TsscStoryServiceImp;
 
 
-@Controller
+@RestController
 public class TsscStoryController {
 	@Autowired
 	private TsscGameServiceImp gameService ;
@@ -24,11 +26,20 @@ public class TsscStoryController {
 	
 	
 	
-	@GetMapping("/stories/")
+	@RequestMapping("/stories")
+	public Iterable<TsscStory> getCars() {
+		return storyService.findAll();
+	}
+	
+	
+	
+	
+	
+	/*@GetMapping("/stories/")
 	public String indexStory(Model model) {
 		model.addAttribute("tsscStories", storyService.findAll());
 		return "stories/index";
-	}
+	}*/
 	
 	@GetMapping("/stories/add")
 	public String addStory(Model model) {
