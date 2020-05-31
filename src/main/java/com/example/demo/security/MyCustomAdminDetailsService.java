@@ -16,7 +16,7 @@ public class MyCustomAdminDetailsService implements UserDetailsService {
 
 	private TsscAdminRepository adminRepository;
 	
-	@Autowired
+	//@Autowired
 	public MyCustomAdminDetailsService(TsscAdminRepository adminRepository) {		
 		this.adminRepository = adminRepository;
 	}
