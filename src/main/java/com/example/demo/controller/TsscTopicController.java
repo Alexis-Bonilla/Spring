@@ -17,7 +17,7 @@ import com.example.demo.service.TsscTopicServiceImp;
 
 
 
-@RestController
+@Controller
 public class TsscTopicController {
 
 	@Autowired
