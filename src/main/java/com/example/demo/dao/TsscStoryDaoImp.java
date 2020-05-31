@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.TsscStory;
+import com.example.demo.model.TsscTopic;
 
 
 @Repository
@@ -57,5 +58,9 @@ public class TsscStoryDaoImp implements TsscStoryDao {
 		}
 		
 	}
-
+	
+	@Override
+	public boolean existById(long id) {
+		return (entityManager.find(TsscStory.class,id)==null)?false:true;
+	}
 }

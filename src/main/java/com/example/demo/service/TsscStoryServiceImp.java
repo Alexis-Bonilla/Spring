@@ -4,27 +4,32 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.dao.TsscGameDao;
+import com.example.demo.dao.TsscStoryDao;
 import com.example.demo.model.TsscStory;
-import com.example.demo.repository.TsscGameRepository;
-import com.example.demo.repository.TsscStoryRepository;
+
 
 import lombok.extern.java.Log;
 
 
 @Log
 @Service
+@Scope("singleton")
 public class TsscStoryServiceImp implements TsscStoryService {
 	
 
-	private TsscStoryRepository repository;
-	private TsscGameRepository gameRepository;
+	private TsscStoryDao storyDao;
+	private TsscGameDao gameDao;
 	
 	@Autowired
-	public TsscStoryServiceImp(TsscStoryRepository repository, TsscGameRepository gameRepository) {
-		this.repository= repository;
-		this.gameRepository=gameRepository;
+	public TsscStoryServiceImp(TsscStoryDao repository, TsscGameDao gameDao) {
+		this.storyDao= repository;
+		this.gameDao=gameDao;
 
 		
 	}
@@ -36,13 +41,14 @@ public class TsscStoryServiceImp implements TsscStoryService {
 				&& story.getPriority().compareTo(BigDecimal.ZERO)==1 );
 		if(check) {
 			if(story.getTsscGame()!=null) {
-				if(gameRepository.existsById(story.getTsscGame().getId())) {
-					repository.save(story);
+				if(gameDao.existById(story.getTsscGame().getId())) {
+					story.setTsscTopic(gameDao.findById(story.getTsscGame().getId()).getTsscTopic());
+					storyDao.save(story);
 				}else {
 					check = false;
 				}
 			}else {
-				repository.save(story);
+				storyDao.save(story);
 			}
 		
 		}
@@ -50,21 +56,26 @@ public class TsscStoryServiceImp implements TsscStoryService {
 	}
 
 	@Override
+	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean existById(long id) {
-		return repository.existsById(id);
+		return storyDao.existById(id);
 	}
 
 	@Override
+	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public TsscStory findById(long id) {
-		return repository.findById(id).get();
+		return storyDao.findById(id);
 	}
 	
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Iterable<TsscStory> findAll(){
-		return repository.findAll();
+		return storyDao.findAll();
 	}
 	
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void deleteTsscStory(TsscStory tsscStory) {
-		repository.delete(tsscStory);
+		storyDao.delete(tsscStory);
 	}
 
 }

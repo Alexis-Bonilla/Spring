@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import com.example.demo.model.TsscGame;
+import com.example.demo.model.TsscTopic;
 
 
 
@@ -18,6 +19,7 @@ public interface TsscGameDao {
 	public void update(TsscGame entity);
 	public void delete(TsscGame  entity);
 	public TsscGame findById(Long id);
+	public List<TsscGame> findAll();
 	public List<TsscGame> findByIdTopic(Long iD);
 	public List<TsscGame> findByName(String name);
 	public List<TsscGame> findByDescription(String description);
@@ -26,6 +28,7 @@ public interface TsscGameDao {
 	public List<TsscGame> findByDateStoryTime(LocalDate date1);
 	public List<TsscGame> findByTopicDescription(String string);
 	public void deleteAll();
+	public boolean existById(long id);
 
 	
 	

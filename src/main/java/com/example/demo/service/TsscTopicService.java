@@ -15,4 +15,5 @@ public interface TsscTopicService {
 	public Iterable<TsscTopic> findAll();
 	public void deleteTsscTopic(TsscTopic tsscTopic);
 	
+	
 }

@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.TsscGame;
+import com.example.demo.model.TsscStory;
 import com.example.demo.model.TsscTopic;
 
 @Repository
@@ -109,7 +110,7 @@ public class TsscGameDaoImp implements TsscGameDao {
 		 
 	}
 	
-	
+	@Override
 	public List<TsscGame> findAll() {
 		String query = "SELECT t FROM TsscGame t";
 		return entityManager.createQuery(query).getResultList();
@@ -126,5 +127,9 @@ public class TsscGameDaoImp implements TsscGameDao {
 		
 		
 	}
-
+	
+	@Override
+	public boolean existById(long id) {
+		return (entityManager.find(TsscGame.class,id)==null)?false:true;
+	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.delegate.TsscTopicDelegate;
 import com.example.demo.model.TsscTopic;
 import com.example.demo.service.TsscTopicServiceImp;
 
@@ -20,17 +21,13 @@ import com.example.demo.service.TsscTopicServiceImp;
 public class TsscTopicController {
 
 	@Autowired
-	TsscTopicServiceImp  tsscTopicServiceImp;
+	TsscTopicDelegate  topicDelegate;
 	
 	
-	@RequestMapping("/topics/")
-	 public Iterable<TsscTopic> getTopics() {
-		return tsscTopicServiceImp.findAll();
-	 }
 	
 	@GetMapping("/topics/")
 	public String indexUser(Model model) {
-		model.addAttribute("tsscTopics",tsscTopicServiceImp.findAll());
+		model.addAttribute("tsscTopics",topicDelegate.findAll());
 		return "topics/index";
 	}
 	
@@ -55,11 +52,11 @@ public class TsscTopicController {
 				
 			} else {
 				
-				tsscTopicServiceImp.save(tsscTopic);
+				topicDelegate.save(tsscTopic);
 				return "redirect:/topics/";
 			}
 		} else {
-				model.addAttribute("topics", tsscTopicServiceImp.findAll());
+				model.addAttribute("topics", topicDelegate.findAll());
 				return "topics/index";
 		}
 
@@ -68,7 +65,7 @@ public class TsscTopicController {
 	@GetMapping("/topics/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
 		
-		TsscTopic tsscTopic = tsscTopicServiceImp.findById(id);
+		TsscTopic tsscTopic = topicDelegate.findById(id);
 			if(tsscTopic == null) {
 				throw new IllegalArgumentException("Invalid Topic Id:" + id);
 			}
@@ -87,7 +84,7 @@ public class TsscTopicController {
 	@PostMapping("/topics/edit/{id}")
 	public String updateTopic(Model model,@PathVariable("id") long id, @RequestParam(value="action", required = true) String action, TsscTopic tsscTopic, BindingResult bindingResult) {
 		if(action != null && !action.equals("Cancel")) {
-			tsscTopicServiceImp.save(tsscTopic);
+			topicDelegate.save(tsscTopic);
 		}
 		
 		if(bindingResult.hasErrors()) {
@@ -109,8 +106,8 @@ public class TsscTopicController {
 @GetMapping("/topics/del/{id}")
 	
 	public String deleteTopic(@PathVariable("id") long id) {
-		TsscTopic tsscTopic = tsscTopicServiceImp.findById(id);
-		tsscTopicServiceImp.deleteTsscTopic(tsscTopic);
+		TsscTopic tsscTopic = topicDelegate.findById(id);
+		topicDelegate.delete(tsscTopic.getId());
 		
 		return "redirect:/topics/";
 	}

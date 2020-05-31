@@ -19,6 +19,7 @@ public interface TsscTopicDao {
 	public void delete(TsscTopic  entity);
 	public TsscTopic findById(Long id);
 	public List<TsscTopic> findAll();
+	public boolean existById(long id);
 	public List<TsscTopic> findByName(String name);
 	public List<TsscTopic> findByDescription(String description);
 	public List<Object[]> findTopicsByGameDateOrderedByTime(LocalDate date);

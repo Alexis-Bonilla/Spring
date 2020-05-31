@@ -90,4 +90,9 @@ public class TsscTopicDaoImp implements TsscTopicDao {
 		
 	}
 
+	@Override
+	public boolean existById(long id) {
+		return (entityManager.find(TsscTopic.class,id)==null)?false:true;
+	}
+
 }
