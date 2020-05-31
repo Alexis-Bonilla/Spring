@@ -11,7 +11,7 @@ import com.example.demo.model.TsscAdmin;
 import com.example.demo.repository.TsscAdminRepository;
 
 
-@Service
+//@Service
 public class MyCustomAdminDetailsService implements UserDetailsService {
 
 	private TsscAdminRepository adminRepository;
