@@ -60,4 +60,7 @@ public class TsscGameDelegate {
 	 public void delete(long id) {
 		restTemplate.delete(idResource, id);
 	 }
+	 public String getIdResource() {
+		 return idResource;
+	 }
 }

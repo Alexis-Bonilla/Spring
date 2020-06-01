@@ -61,4 +61,8 @@ public class TsscTopicDelegate {
 	public void delete(long id) {
 		restTemplate.delete(idResource, id);
 	}
+	
+	public String getIdResources() {
+		return idResource;
+	}
 }

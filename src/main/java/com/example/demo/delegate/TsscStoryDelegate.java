@@ -56,8 +56,10 @@ public class TsscStoryDelegate {
 		 public void delete(long id) {
 			template.delete(resourceId, id);
 		 }
-	 
-	
+		 
+			public String getIdResource() {
+				return resourceId;
+			}
 	
 
 }
