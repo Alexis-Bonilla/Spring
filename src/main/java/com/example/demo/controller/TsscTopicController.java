@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,10 +83,11 @@ public class TsscTopicController {
 			
 	}
 	
+
 	@PostMapping("/topics/edit/{id}")
 	public String updateTopic(Model model,@PathVariable("id") long id, @RequestParam(value="action", required = true) String action, TsscTopic tsscTopic, BindingResult bindingResult) {
-		if(action != null && !action.equals("Cancel")) {
-			topicDelegate.save(tsscTopic);
+		if(action != null && !action.equals("Cancelar")) {
+			topicDelegate.update( id,tsscTopic);
 		}
 		
 		if(bindingResult.hasErrors()) {
@@ -96,7 +99,7 @@ public class TsscTopicController {
 			return "topic/update-topic";
 		}
 		
-		if (action.equals("Cancel")) {
+		if (action.equals("Cancelar")) {
 			return "redirect:/topics/";
 		}
 		return "redirect:/topics/";

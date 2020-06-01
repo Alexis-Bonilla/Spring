@@ -35,7 +35,7 @@ public class TsscTopicServiceImp implements TsscTopicService{
 	}
 	
 	@Override
-	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public TsscTopic findById(long id) {
 		return topicDao.findById(id);
 	}
