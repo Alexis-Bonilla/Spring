@@ -47,7 +47,7 @@ public class TsscTopicRestController {
 		} 
 		return t.getTsscStories();
 	}
-	
+	                                  
 	@GetMapping("/api/topics/{id}/games")
 	public List<TsscGame> getTopicGames(@PathVariable("id") long id) {
 		TsscTopic t = topicService.findById(id);
