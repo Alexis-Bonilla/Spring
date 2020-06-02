@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 import com.example.demo.model.TsscAdmin;
 
-
-
 @Repository
 @Scope("singleton")
 public class TsscAdminDaoImp implements TsscAdminDao {

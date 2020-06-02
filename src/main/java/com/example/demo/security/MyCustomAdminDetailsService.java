@@ -16,7 +16,7 @@ import com.example.demo.repository.TsscAdminRepository;
 public class MyCustomAdminDetailsService implements UserDetailsService {
 
 	@Autowired
-	private TsscAdminDao adminDao;
+	TsscAdminDao adminDao;
 	
 	
 	@Override

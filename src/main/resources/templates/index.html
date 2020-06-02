@@ -12,26 +12,33 @@
 	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
 	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="../css/shards.min.css">
-<link rel="stylesheet" type="text/css" th:href="@{/resources/styles.css}"></link>
 </head>
 <body>
-	<div th:action="@{/index}"class="container mt-5 ">
-			<div class="col-12 text-center">
-					<h4>Simulacion SCRUM - Universidad Icesi</h2>
-					<br></br>
-					<div sec:authorize="hasRole('superAdministrator')">
-						<p> <a href="/games/"><i class="fas fa-dice-d20"></i> Gestion de Juegos</a></p>
-						<p><a href="/topics/"><i class="fas fa-drum-steelpan"></i> Gestion de temas</a></p>
-						<p><a href="/stories/"><i class="fab fa-stripe-s"></i> Gestion de historias</a></p>	
-				    </div>
-				    <div sec:authorize="hasRole('administrator')">
-						<p> <a href="/games/"><i class="fas fa-dice-d20"></i> Gestion de Juegos</a></p>
-						<p><a href="/stories/"><i class="fab fa-stripe-s"></i> Gestion de historias</a></p>	
-					</div> 
-					<p class="shadow"><a href="/logout"><i class="fas fa-sign-out-alt ml-2"></i> Logout</a></p>
-				
-			</div>
+<!-- th:action="@{/index}" -->
+	<div  class="container mt-5 ">
+		<div class="col-12 text-center">
+			<h4>
+				Simulacion SCRUM - Universidad Icesi
+				</h2>
+				<br></br>
+				<p>
+					<a href="/games/"><i class="fas fa-dice-d20"></i> Gestion de
+						Juegos</a>
+				</p>
+				<p sec:authorize="hasRole('superAdministrator')">
+					<a href="/topics/"><i class="fas fa-drum-steelpan"></i> Gestion
+						de temas</a>
+				</p>
+				<p>
+					<a href="/stories/"><i class="fab fa-stripe-s"></i> Gestion de
+						historias</a>
+				</p>
+
+				<p class="shadow">
+					<a href="/logout"><i class="fas fa-sign-out-alt ml-2"></i>
+						Logout</a>
+				</p>
+		</div>
 	</div>
 </body>
 </html>
