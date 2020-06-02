@@ -3,11 +3,15 @@ package com.example.demo.delegate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.model.TsscGame;
@@ -54,6 +58,7 @@ public class TsscTopicDelegate {
 		restTemplate.postForObject(resource, topic, TsscTopic.class);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void update(long id, TsscTopic topic) {
 		restTemplate.exchange(idResource, HttpMethod.PUT, new HttpEntity<>(topic), TsscTopic.class, id).getBody();
 	}

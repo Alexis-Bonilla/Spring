@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,7 @@ public class TsscTopicController {
 	}
 	
 	@PostMapping("/topics/add")
+
 	public String saveTopic( Model model, TsscTopic tsscTopic, BindingResult bindingResult,@RequestParam(value = "action", required = true) String action) {
 		if (!action.equals("Cancel")) {
 			if (bindingResult.hasErrors()) {
@@ -65,6 +68,7 @@ public class TsscTopicController {
 	}
 	
 	@GetMapping("/topics/edit/{id}")
+
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
 		
 		TsscTopic tsscTopic = topicDelegate.findById(id);
@@ -85,6 +89,7 @@ public class TsscTopicController {
 	
 
 	@PostMapping("/topics/edit/{id}")
+
 	public String updateTopic(Model model,@PathVariable("id") long id, @RequestParam(value="action", required = true) String action, TsscTopic tsscTopic, BindingResult bindingResult) {
 		if(action != null && !action.equals("Cancelar")) {
 			topicDelegate.update( id,tsscTopic);
@@ -106,8 +111,8 @@ public class TsscTopicController {
 	}
 	
 	
-@GetMapping("/topics/del/{id}")
-	
+	@GetMapping("/topics/del/{id}")
+
 	public String deleteTopic(@PathVariable("id") long id) {
 		TsscTopic tsscTopic = topicDelegate.findById(id);
 		topicDelegate.delete(tsscTopic.getId());
