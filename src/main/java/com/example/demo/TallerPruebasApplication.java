@@ -43,9 +43,6 @@ import lombok.extern.java.Log;
 
 @Log
 @SpringBootApplication
-@EnableJpaRepositories("com.example.demo.repository")
-@EntityScan("com.example.demo.model")
-@ComponentScan({"com.example.demo"})
 public class TallerPruebasApplication {
 
 	public static void main(String[] args) {
@@ -57,6 +54,7 @@ public class TallerPruebasApplication {
 	public RestTemplate restTemplate() {
 	    return new RestTemplate();
 	}
+	
 
 	
 	@Bean
@@ -120,18 +118,7 @@ public class TallerPruebasApplication {
 
 	}
 	
-	
-	
 
-	
-	
-
-	
-	
-	
-	
-	
-	
 	
 	@Bean
 	public Java8TimeDialect java8TimeDialect() {

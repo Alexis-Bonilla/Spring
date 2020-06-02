@@ -16,12 +16,16 @@ import com.example.demo.repository.TsscAdminRepository;
 public class MyCustomAdminDetailsService implements UserDetailsService {
 
 	@Autowired
-	TsscAdminDao adminDao;
+	private TsscAdminRepository adminRepository;
 	
+	@Autowired
+	public MyCustomAdminDetailsService(TsscAdminRepository adminRepository) {		
+		this.adminRepository = adminRepository;
+	}
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		TsscAdmin tsscAdmin = adminDao.findByUser(username);
+		TsscAdmin tsscAdmin = adminRepository.findByUsername(username);
 		if (tsscAdmin != null) {
 			User.UserBuilder builder = User.withUsername(username).password(tsscAdmin.getPassword()).roles(tsscAdmin.getSuperAdmin());
 			return builder.build();
