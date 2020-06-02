@@ -47,8 +47,8 @@ import lombok.extern.java.Log;
 public class TallerPruebasApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(TallerPruebasApplication.class, args);
-		ConfigurableApplicationContext c = SpringApplication.run(TallerPruebasApplication.class, args);
+		SpringApplication.run(TallerPruebasApplication.class, args);
+		//ConfigurableApplicationContext c = SpringApplication.run(TallerPruebasApplication.class, args);
 	}
 	
 	@Bean

@@ -113,9 +113,9 @@ class TsscTopicDaoTest {
 		topic.setDefaultSprints(20);
 		topic.setDescription("description");
 		topicDao.save(topic);
-		assertEquals(topicDao.findByName("name").get(0).getDescription(),topic.getDescription());
-		assertTrue(topicDao.findByName("name").get(0).getDefaultGroups()==topic.getDefaultGroups());
-		assertTrue(topicDao.findByName("name").get(0).getDefaultSprints()==topic.getDefaultSprints());
+		assertEquals(topicDao.findByName("name").getDescription(),topic.getDescription());
+		assertTrue(topicDao.findByName("name").getDefaultGroups()==topic.getDefaultGroups());
+		assertTrue(topicDao.findByName("name").getDefaultSprints()==topic.getDefaultSprints());
 		
 	}
 
@@ -161,7 +161,7 @@ class TsscTopicDaoTest {
 		topic3.setDescription("description");
 		topicDao.save(topic3);
 		
-		/* son 5 los que están en la base de datos 
+		/* son 5 los que estï¿½n en la base de datos 
 		 si solo se prueban los que se crean en esta clase
 		 son 8 si se hacen las pruebas de todas las clases*/
 														

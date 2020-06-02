@@ -157,7 +157,7 @@ class TsscGameDaoTest {
 		gameDao.save(game);
 
 		assertNotNull(gameDao.findByName("game"));
-		assertTrue(game.getId()==gameDao.findByName("game").get(3).getId());
+		assertTrue(game.getId()==gameDao.findByName("game").getId());
 	}
 
 	@Test

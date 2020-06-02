@@ -24,8 +24,12 @@
 						<p> <a href="/games/"><i class="fas fa-dice-d20"></i> Gestion de Juegos</a></p>
 						<p><a href="/topics/"><i class="fas fa-drum-steelpan"></i> Gestion de temas</a></p>
 						<p><a href="/stories/"><i class="fab fa-stripe-s"></i> Gestion de historias</a></p>	
-				    </div> 
-
+				    </div>
+				    <div sec:authorize="hasRole('administrator')">
+						<p> <a href="/games/"><i class="fas fa-dice-d20"></i> Gestion de Juegos</a></p>
+						<p><a href="/stories/"><i class="fab fa-stripe-s"></i> Gestion de historias</a></p>	
+					</div> 
+					<p class="shadow"><a href="/logout"><i class="fas fa-sign-out-alt ml-2"></i> Logout</a></p>
 				
 			</div>
 	</div>
