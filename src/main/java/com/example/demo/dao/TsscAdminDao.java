@@ -12,5 +12,5 @@ public interface TsscAdminDao {
 	public TsscAdmin findById(Long id);
 	public List<TsscAdmin> findAll();
 	public void deleteAll();
-
+	public TsscAdmin findByUser(String username);
 }

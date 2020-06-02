@@ -28,7 +28,7 @@ public class TsscTopicServiceImp implements TsscTopicService{
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean save(TsscTopic topic) {
 		boolean check= (topic.getDefaultGroups()>0&&topic.getDefaultSprints()>0);
-		if(check) {
+		if(check && topic != null) {
 			topicDao.save(topic);
 		}
 		return check;

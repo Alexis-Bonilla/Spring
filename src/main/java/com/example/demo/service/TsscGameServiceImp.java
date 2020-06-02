@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dao.TsscGameDao;
 import com.example.demo.dao.TsscStoryDao;
+import com.example.demo.dao.TsscTimeControlDao;
+import com.example.demo.dao.TsscTimeControlDaoImp;
 import com.example.demo.dao.TsscTopicDao;
 import com.example.demo.model.TsscGame;
 import com.example.demo.model.TsscStory;
@@ -32,12 +34,14 @@ public class TsscGameServiceImp implements TsscGameService {
 	private TsscGameDao gameDao;
 	private TsscTopicDao topicDao;
 	private TsscStoryDao storyDao;
+	private TsscTimeControlDao timeControlDao;
 	
 	@Autowired
-	TsscGameServiceImp(TsscGameDao repository, TsscTopicDao topicRepository, TsscStoryDao storyDao){
+	TsscGameServiceImp(TsscGameDao repository, TsscTopicDao topicRepository, TsscStoryDao storyDao, TsscTimeControlDao timeControlDao){
 	this.gameDao = repository;
 	this.topicDao = topicRepository;
 	this.storyDao = storyDao;
+	this.timeControlDao = timeControlDao;
 	}
 
 
@@ -57,14 +61,17 @@ public class TsscGameServiceImp implements TsscGameService {
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean save(TsscGame game) {
-		boolean check = (game.getNGroups()>0 && game.getNSprints()>0);
+		
+		boolean check = (game.getNGroups()>0 && game.getNSprints()>0 && game!=null);
 		if(check) {
 			if(game.getTsscTopic()==null) {
 				gameDao.save(game);
 			}else {
 				TsscTopic x =  topicDao.findById(game.getTsscTopic().getId());
 				if(x!=null) {
+					
 					gameDao.save(game);
+					
 					ArrayList<TsscStory> stories = new ArrayList<TsscStory>();
 					ArrayList<TsscTimecontrol> tcs = new ArrayList<TsscTimecontrol>();
 					if(x.getTsscStories() != null) {
@@ -85,7 +92,7 @@ public class TsscGameServiceImp implements TsscGameService {
 						}
 						
 					}
-					/*
+					
 					if(x.getTsscTimecontrols() != null) {
 
 						for (TsscTimecontrol t : x.getTsscTimecontrols()) {
@@ -97,11 +104,11 @@ public class TsscGameServiceImp implements TsscGameService {
 							n.setIntervalRunning(t.getIntervalRunning());
 							n.setTsscGame(game);
 							tcs.add(n);
-							timecontrolDao.save(n);
+							timeControlDao.save(n);
 						}
 						
 					}
-					*/
+					
 				}
 				if(topicDao.existById(game.getTsscTopic().getId())) {
 					gameDao.save(game);

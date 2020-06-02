@@ -54,11 +54,9 @@ public class TsscTopicDaoImp implements TsscTopicDao {
 	}
 
 	@Override
-	public List<TsscTopic> findByName(String name) {
+	public TsscTopic findByName(String name) {
 	      String query = "Select t from TsscTopic t where t.name = :name";
-	         Query q = entityManager.createQuery(query);
-	         q.setParameter("name", name);
-			 return q.getResultList();
+			 return (TsscTopic) entityManager.createQuery(query).getSingleResult();
 	}
 
 	@Override

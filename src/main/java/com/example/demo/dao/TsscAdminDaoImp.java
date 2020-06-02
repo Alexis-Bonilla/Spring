@@ -57,4 +57,10 @@ public class TsscAdminDaoImp implements TsscAdminDao {
 		
 	}
 
+	@Override
+	public TsscAdmin findByUser(String username) {
+		String jpql = "SELECT a FROM TsscAdmin a WHERE a.user = '" +username +"'";
+		return (TsscAdmin) entityManager.createQuery(jpql).getSingleResult();
+	}
+
 }

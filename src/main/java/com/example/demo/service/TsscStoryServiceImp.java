@@ -35,14 +35,17 @@ public class TsscStoryServiceImp implements TsscStoryService {
 	}
 
 	@Override
-	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean save(TsscStory story) {
 		boolean check = (story.getBusinessValue().compareTo(BigDecimal.ZERO)==1 
 				&& story.getInitialSprint().compareTo(BigDecimal.ZERO)==1
-				&& story.getPriority().compareTo(BigDecimal.ZERO)==1 );
+				&& story.getPriority().compareTo(BigDecimal.ZERO)==1 )
+				&& story != null
+				;
 		if(check) {
 			if(story.getTsscGame()!=null) {
 				if(gameDao.existById(story.getTsscGame().getId())) {
+					
 					story.setTsscTopic(gameDao.findById(story.getTsscGame().getId()).getTsscTopic());
 					storyDao.save(story);
 				}else {
@@ -69,7 +72,7 @@ public class TsscStoryServiceImp implements TsscStoryService {
 	}
 	
 	@Override
-	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Iterable<TsscStory> findAll(){
 		return storyDao.findAll();
 	}

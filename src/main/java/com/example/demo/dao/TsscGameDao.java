@@ -21,7 +21,7 @@ public interface TsscGameDao {
 	public TsscGame findById(Long id);
 	public List<TsscGame> findAll();
 	public List<TsscGame> findByIdTopic(Long iD);
-	public List<TsscGame> findByName(String name);
+	public TsscGame findByName(String name);
 	public List<TsscGame> findByDescription(String description);
 	public List<TsscGame> findByDateRange(LocalDate date1, LocalDate date2);
 	public List<TsscGame> findByDateTimeRange(LocalDate date1, LocalTime time1, LocalTime time2);

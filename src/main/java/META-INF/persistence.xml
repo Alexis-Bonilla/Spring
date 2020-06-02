@@ -12,6 +12,7 @@
   			 <class>com.example.demo.Modelo.TsscTopic</class>
 	 	 	 <class>com.example.demo.Modelo.TsscStory</class>
 	 	  	 <class>com.example.demo.Modelo.TsscGame</class>
+	 	  	 <class>com.example.demo.Modelo.TsscTimeControl</class>
 	 	  	 
 	 	  	 
 	 	  
@@ -20,12 +21,16 @@
 	            <property name="javax.persistence.jdbc.url" value="jdbc:h2:./test" /> 
 	            <property name="javax.persistence.jdbc.user" value="sa" /> 
 	            <property name="javax.persistence.jdbc.password" value="" /> 
-	
+	            
+	            <!-- Forma Original 
 		  	  	<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> 
 	            <property name="hibernate.hbm2ddl.auto" value="update" /> 
 	            
 	            <property name="hibernate.show_sql" value="true" /> 
-	            <property name="hibernate.format_sql" value="true" /> 
+	            <property name="hibernate.format_sql" value="true" />
+	            --> 
+	            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+				<property name="show_sql" value="true"/>
 	    </properties>
   </persistence-unit>
 </persistence>

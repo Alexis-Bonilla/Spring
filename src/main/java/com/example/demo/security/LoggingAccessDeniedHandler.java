@@ -16,7 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class LoggingAccessDeniedHandler implements AccessDeniedHandler{
 
 	private static Logger log = LoggerFactory.getLogger(LoggingAccessDeniedHandler.class);

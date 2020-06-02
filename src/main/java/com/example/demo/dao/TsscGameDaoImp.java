@@ -56,11 +56,10 @@ public class TsscGameDaoImp implements TsscGameDao {
 	}
 
 	@Override
-	public List<TsscGame> findByName(String name) {
-        String query = "SELECT t FROM TsscGame t WHERE t.name = :name";
-        Query q = entityManager.createQuery(query);
-        q.setParameter("name", name);
-		 return q.getResultList();
+	public TsscGame findByName(String name) {
+        String query = "SELECT t FROM TsscGame t WHERE t.name = '" +name +"'";
+        TsscGame aux = (TsscGame) entityManager.createQuery(query).getSingleResult(); 
+		 return aux; 
 	}
 
 	@Override
