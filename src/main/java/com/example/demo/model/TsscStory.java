@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import com.example.demo.Validated.StoryValidated;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +58,7 @@ public class TsscStory implements Serializable {
 	private List<TsscDeliverable> tsscDeliverables;
 
 	// bi-directional many-to-one association to TsscGame
-	@NotNull(message = "Denerías seleccionar un juego", groups=StoryValidated.class)
+	@NotNull(message = "Denerï¿½as seleccionar un juego", groups=StoryValidated.class)
 	@ManyToOne
 	@JoinColumn(name = "TSSC_GAME_ID")
 	private TsscGame tsscGame;
@@ -198,6 +199,15 @@ public class TsscStory implements Serializable {
 
 	public void setTsscGame(TsscGame tsscGame) {
 		this.tsscGame = tsscGame;
+		if(tsscGame.getTsscStories()!=null) {
+			tsscGame.getTsscStories().add(this);
+		}
+		else {
+			List<TsscStory> list = new ArrayList<TsscStory>();
+			list.add(this);
+			tsscGame.setTsscStories(list);
+		}
+
 	}
 	
 	public TsscTopic getTsscTopic() {

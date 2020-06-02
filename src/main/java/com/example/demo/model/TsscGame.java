@@ -32,19 +32,19 @@ public class TsscGame implements Serializable {
 	@SequenceGenerator(name = "TSSC_GAME_ID_GENERATOR", allocationSize = 1, sequenceName = "TSSC_GAME_SEQ")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TSSC_GAME_ID_GENERATOR")
 	private long id;
-	@NotBlank(message = "Este campo no puede estar vacío", groups=GameValidated.class)
+	@NotBlank(message = "Este campo no puede estar vacï¿½o", groups=GameValidated.class)
 	@Column(name = "ADMIN_PASSWORD")
 	private String adminPassword;
-	@NotBlank(message = "Este campo no puede estar vacío", groups=GameValidated.class)
+	@NotBlank(message = "Este campo no puede estar vacï¿½o", groups=GameValidated.class)
 	@Column(name = "GUEST_PASSWORD")
 	private String guestPassword;
-	@Min(value = 1, message = "El número de grupos debe ser mayor a 0", groups=GameValidated.class)
+	@Min(value = 1, message = "El nï¿½mero de grupos debe ser mayor a 0", groups=GameValidated.class)
 	@Column(name = "N_GROUPS")
 	private Integer nGroups = 4;
-	@Min(value = 1, message = "El número de sprints debe ser mayor a 0", groups=GameValidated.class)
+	@Min(value = 1, message = "El nï¿½mero de sprints debe ser mayor a 0", groups=GameValidated.class)
 	@Column(name = "N_SPRINTS")
 	private Integer nSprints = 4;
-	@NotBlank(message = "El nombre está vacío", groups=GameValidated.class)
+	@NotBlank(message = "El nombre estï¿½ vacï¿½o", groups=GameValidated.class)
 	private String name;
 
 	@Column(name = "PAUSE_SECONDS")
@@ -65,7 +65,7 @@ public class TsscGame implements Serializable {
 
 	@Column(name = "TYPEGAME_ID")
 	private BigDecimal typegameId;
-	@NotBlank(message = "Debes ingresar una contraseña", groups=GameValidated.class)
+	@NotBlank(message = "Debes ingresar una contraseï¿½a", groups=GameValidated.class)
 	@Column(name = "USER_PASSWORD")
 	private String userPassword;
 

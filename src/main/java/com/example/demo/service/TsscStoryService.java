@@ -12,5 +12,6 @@ public interface TsscStoryService {
 	public TsscStory findById(long id);
 	public Iterable<TsscStory> findAll();
 	public void deleteTsscStory(TsscStory tsscStory);
+	public boolean update(TsscStory story);
 	
 }

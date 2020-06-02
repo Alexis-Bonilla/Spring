@@ -74,7 +74,7 @@
 							<label for="tsscTopic" class="col-form-label">Seleccionar Tema</label> <select
 								class="form-control-range" th:field="*{tsscTopic}">
 								<option th:value="null">No Topic</option>
-								<option th:each="topic : ${topics}" th:value="${topic.id}"
+								<option th:each="topic : ${tsscTopics}" th:value="${topic.id}"
 									class="form-control" th:text="${topic.name}"
 									th:selected="${tsscGame.tsscTopic=topic}"></option>
 							</select> <span th:if="${#fields.hasErrors('tsscTopic')}"

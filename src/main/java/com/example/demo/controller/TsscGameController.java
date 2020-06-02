@@ -16,7 +16,10 @@ import com.example.demo.service.TsscGameServiceImp;
 
 import com.example.demo.service.TsscTopicServiceImp;
 
+import lombok.extern.java.Log;
+
 @Controller
+@Log
 public class TsscGameController {
 
 	@Autowired
@@ -37,6 +40,9 @@ public class TsscGameController {
 		
 		model.addAttribute("tsscGame", new TsscGame());
 		model.addAttribute("tsscTopics", topicDelegate.findAll());
+		
+		
+		
 		
 		return "games/add-game";
 	}
@@ -156,6 +162,24 @@ public class TsscGameController {
 	@GetMapping("/games/list/{id}")
 	public String showListStories(@PathVariable("id") long id, Model model) {
 		TsscGame tsscGame = gameDelegate.findById(id);
+		log.info("ESTOY EN EL METODO DEL CONTROLADOR DE MOSTRAR LAS HISTORIAS DE UN JUEGO CON ID : "+ id);
+		log.info("NOMBRE DEL JUEGO: "+tsscGame.getName());
+		
+		log.info("TIENE HISTORIAS ASOCIADAS? ");
+	
+		if(tsscGame.getTsscStories()!=null) {
+			log.info("LA LISTA DE HISTORIAS NO ES NULA");
+			log.info("TAMAÑO DE LA LISTA DE HISTORIAS: "+tsscGame.getTsscStories().size());
+			
+			for (int i = 0; i < tsscGame.getTsscStories().size(); i++) {
+				log.info("HISTORIA NUMERO "+i+" "+tsscGame.getTsscStories().get(i).getDescription());
+			}
+		}
+		else {
+			log.info("LA LISTA DE HISTORIAS SI ES NULA :(");
+			
+		}
+		
 		model.addAttribute("tsscGame", tsscGame);
 		model.addAttribute("stories", tsscGame.getTsscStories());
 		return "games/list-stories";

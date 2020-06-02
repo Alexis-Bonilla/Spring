@@ -68,7 +68,6 @@ public class TsscTopicController {
 	}
 	
 	@GetMapping("/topics/edit/{id}")
-
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
 		
 		TsscTopic tsscTopic = topicDelegate.findById(id);
@@ -89,7 +88,6 @@ public class TsscTopicController {
 	
 
 	@PostMapping("/topics/edit/{id}")
-
 	public String updateTopic(Model model,@PathVariable("id") long id, @RequestParam(value="action", required = true) String action, TsscTopic tsscTopic, BindingResult bindingResult) {
 		if(action != null && !action.equals("Cancelar")) {
 			topicDelegate.update( id,tsscTopic);

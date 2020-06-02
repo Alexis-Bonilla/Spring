@@ -59,7 +59,7 @@ public class TallerPruebasApplication {
 	
 	@Bean
 	public CommandLineRunner demo(TsscAdminService adminServiceImp, TsscTopicService topicServiceImp,
-			TsscGameService gameServiceImp, TsscStoryService storyServiceImp, TsscGameDao gameDaoImp) {
+			TsscGameService gameServiceImp, TsscStoryService storyServiceImp) {
 		return (args) -> {
 
 			TsscAdmin user = new TsscAdmin();

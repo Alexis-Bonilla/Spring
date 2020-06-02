@@ -37,6 +37,49 @@ public class TsscStoryServiceImp implements TsscStoryService {
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean save(TsscStory story) {
+		boolean check = false;
+		if(story!=null) {
+			
+			log.info("STORY DIFERENTE DE NULL");
+			check = (story.getBusinessValue().compareTo(BigDecimal.ZERO)==1 
+					&& story.getInitialSprint().compareTo(BigDecimal.ZERO)==1
+					&& story.getPriority().compareTo(BigDecimal.ZERO)==1 )
+					&& story != null
+					;
+			if(check) {
+				log.info("los valores son mayor a cero");
+				
+				if(story.getTsscGame()!=null) {
+					
+					log.info("EL JUEGO DE LA HISTORIA ES DISTINTO DE NULL");
+					if(gameDao.existById(story.getTsscGame().getId())) {
+						
+						log.info("VERIFICA QUE EL JUEGO EXISTA CON UN METODO DEL DAO");
+						story.setTsscTopic(gameDao.findById(story.getTsscGame().getId()).getTsscTopic());
+						
+					
+						log.info("NOMBRE DEL JUEGO DE LA HISTORIA : "+story.getTsscGame().getName());
+						
+						
+						storyDao.save(story);
+					}else {
+						log.info("NO EXISTE EL JUEGO ASOCIADO A LA HISTORIA");
+						check = false;
+					}
+				}else {
+					storyDao.save(story);
+				}
+			
+			}
+
+		}
+		
+		return check;
+	}
+	
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean update(TsscStory story) {
 		boolean check = (story.getBusinessValue().compareTo(BigDecimal.ZERO)==1 
 				&& story.getInitialSprint().compareTo(BigDecimal.ZERO)==1
 				&& story.getPriority().compareTo(BigDecimal.ZERO)==1 )
@@ -45,19 +88,19 @@ public class TsscStoryServiceImp implements TsscStoryService {
 		if(check) {
 			if(story.getTsscGame()!=null) {
 				if(gameDao.existById(story.getTsscGame().getId())) {
-					
 					story.setTsscTopic(gameDao.findById(story.getTsscGame().getId()).getTsscTopic());
-					storyDao.save(story);
+					storyDao.update(story);
 				}else {
 					check = false;
 				}
 			}else {
-				storyDao.save(story);
+				storyDao.update(story);
 			}
 		
 		}
 		return check;
 	}
+	
 
 	@Override
 	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -81,5 +124,7 @@ public class TsscStoryServiceImp implements TsscStoryService {
 	public void deleteTsscStory(TsscStory tsscStory) {
 		storyDao.delete(tsscStory);
 	}
+
+
 
 }

@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,18 +12,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.delegate.TsscGameDelegate;
 import com.example.demo.delegate.TsscStoryDelegate;
+import com.example.demo.model.TsscGame;
 import com.example.demo.model.TsscStory;
 import com.example.demo.service.TsscGameServiceImp;
 import com.example.demo.service.TsscStoryServiceImp;
 
+import lombok.extern.java.Log;
+
 
 @Controller
+@Log
 public class TsscStoryController {
 	
 	
 	@Autowired
-	private TsscGameServiceImp gameService ;
+	private TsscGameDelegate gameDelegate ;
 
 	@Autowired
 	TsscStoryDelegate storyDelegate;
@@ -29,7 +37,7 @@ public class TsscStoryController {
 	
 	
 	
-	@GetMapping("/stories/")
+	@GetMapping("/stories")
 	public String indexStory(Model model) {
 		model.addAttribute("tsscStories", storyDelegate.findAll());
 		return "stories/index";
@@ -38,7 +46,7 @@ public class TsscStoryController {
 	@GetMapping("/stories/add")
 	public String addStory(Model model) {
 		model.addAttribute("tsscStory", new TsscStory());
-		model.addAttribute("games", gameService.findAll());
+		model.addAttribute("games", gameDelegate.findAll());
 		return "stories/add-story";
 	}
 	
@@ -47,27 +55,61 @@ public class TsscStoryController {
 	public String saveStory(  Model model,TsscStory tsscStory, BindingResult bindingResult,
 			@RequestParam(value = "action", required = true) String action) {
 
-		if (!action.equals("Cancel")) {
+		if (!action.equals("Cancelar")) {
 			if (bindingResult.hasErrors()) {
 
 				model.addAttribute("descriptionTsscStory", tsscStory.getDescription());
 				model.addAttribute("businessValueTsscStory", tsscStory.getBusinessValue());
 				model.addAttribute("initialSprintTsscStory", tsscStory.getInitialSprint());
 				model.addAttribute("priorityTsscStory", tsscStory.getPriority());
-				model.addAttribute("tsscGames",gameService.findAll());
+				model.addAttribute("tsscGames",tsscStory.getTsscGame());
 
 				return "stories/add-stories";
 			} else {
+				
+				log.info("ENTRA A LA PARTE DE GUARDAR LAS HISTORIAS");
+				
+				TsscGame g = gameDelegate.findById(tsscStory.getTsscGame().getId());
+				log.info("Nombre del game de la historia "+ g.getName());
+				log.info("ID del game: "+ g.getId());
+				
+				log.info("añadimos la historia "+tsscStory.getDescription()+ " a la lista de historias del juego "+g.getName());
+				
+				
+				gameDelegate.findById(tsscStory.getTsscGame().getId()).getTsscStories().add(tsscStory);		
+				storyDelegate.save(tsscStory);
+				
+			
+				
+				log.info("actualizamos el juego con la nueva historia");
 
-					gameService.findById(tsscStory.getTsscGame().getId());		
-					storyDelegate.save(tsscStory);
 
+	/*			log.info("Validamos que se haya guardado la historia");
+				Iterable<TsscStory> s = gameDelegate.findById(g.getId()).getTsscStories();
+				
+				if(s!=null) {
+					log.info("LAS HISTORIAS NO SON NULAS");
+				
+	
+					for (TsscStory story : s) {
+						log.info( "Descripción de la historia : "+   story.getDescription());
+					}
+				
+					
+					
+				}
+				else {
+					log.info("LAS HISTORIAS SON NULLLL");
+				}
+				
+				
+				*/
+			
 				return "redirect:/stories/";
 			}
 		} else {
-
-			model.addAttribute("stories", storyDelegate.findAll());
-			return "stories/index";
+			
+			return "redirect:/stories/";
 		}
 
 	}
@@ -83,7 +125,7 @@ public class TsscStoryController {
 		model.addAttribute("businessValueTsscStory", tsscStory.getBusinessValue());
 		model.addAttribute("initialSprintTsscStory", tsscStory.getInitialSprint());
 		model.addAttribute("priorityTsscStory", tsscStory.getPriority());
-		model.addAttribute("tsscGames",gameService.findAll());
+		model.addAttribute("tsscGames",gameDelegate.findAll());
 		return "stories/update-story";
 	}
 	
@@ -104,7 +146,7 @@ public class TsscStoryController {
 			model.addAttribute("businessValueTsscStory", tsscStory.getBusinessValue());
 			model.addAttribute("initialSprintTsscStory", tsscStory.getInitialSprint());
 			model.addAttribute("priorityTsscStory", tsscStory.getPriority());
-			model.addAttribute("tsscGames", gameService.findAll());
+			model.addAttribute("tsscGames", gameDelegate.findAll());
 			
 			return "stories/update-story";
 		}

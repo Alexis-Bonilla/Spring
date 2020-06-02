@@ -64,7 +64,7 @@ public class TsscStoryRestController {
 			return ResponseEntity.notFound().build();
 		} 
 		story.setId(id);
-		storyService.save(story);
+		storyService.update(story);
 		return ResponseEntity.ok().build();
 	}
 	
