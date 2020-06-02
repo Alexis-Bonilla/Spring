@@ -20,19 +20,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {	
 		
-		httpSecurity.formLogin().loginPage("/login").permitAll();
+		/*httpSecurity.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
+        .antMatchers("/index").authenticated().and().httpBasic();*/
 		
-		httpSecurity.csrf().disable().authorizeRequests();
+		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/").authenticated()
+		.and().formLogin().loginPage("/login").permitAll();
+
+		
 		
 		/*
-		 .and().authorizeRequests()
-        .antMatchers("/index").permitAll()
-		.antMatchers("/games/", "/stories/", "/games/**", "/stories/**").hasAnyRole("administrator", "superAdministrator")
-		.antMatchers("/topics/**").hasRole("superAdministrator")
-		.anyRequest().authenticated().and().httpBasic().and().logout().invalidateHttpSession(true)
-		.clearAuthentication(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/login?logout").permitAll().and().exceptionHandling()
-		.accessDeniedHandler(accessDeniedHandler)
-		 */
+		 .permitAll().anyRequest().authenticated().and().httpBasic()
+		*/
 	}
 }
