@@ -88,7 +88,7 @@ public class TsscGameServiceImp implements TsscGameService {
 							n.setTsscTopic(t.getTsscTopic());
 							n.setTsscGame(game);
 							stories.add(n);
-							storyDao.save(n);
+							storyDao.update(n);
 						}
 						
 					}
@@ -104,7 +104,7 @@ public class TsscGameServiceImp implements TsscGameService {
 							n.setIntervalRunning(t.getIntervalRunning());
 							n.setTsscGame(game);
 							tcs.add(n);
-							timeControlDao.save(n);
+							timeControlDao.update(n);
 						}
 						
 					}
@@ -119,6 +119,70 @@ public class TsscGameServiceImp implements TsscGameService {
 		}
 		return check;
 	}
+	
+	
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean update(TsscGame game) {
+		
+		boolean check = (game.getNGroups()>0 && game.getNSprints()>0 && game!=null);
+		if(check) {
+			if(game.getTsscTopic()==null) {
+				gameDao.update(game);
+			}else {
+				TsscTopic x =  topicDao.findById(game.getTsscTopic().getId());
+				if(x!=null) {
+					
+					gameDao.update(game);
+					
+					ArrayList<TsscStory> stories = new ArrayList<TsscStory>();
+					ArrayList<TsscTimecontrol> tcs = new ArrayList<TsscTimecontrol>();
+					if(x.getTsscStories() != null) {
+						
+						for (TsscStory t : x.getTsscStories()) {
+							TsscStory n= new TsscStory();
+							n.setAltDescripton(t.getAltDescripton());
+							n.setBusinessValue(t.getBusinessValue());
+							n.setDescription(t.getDescription());
+							n.setInitialSprint(t.getInitialSprint());
+							n.setPriority(t.getPriority());
+							n.setShortDescription(t.getShortDescription());
+							n.setNumber(t.getNumber());
+							n.setTsscTopic(t.getTsscTopic());
+							n.setTsscGame(game);
+							stories.add(n);
+							storyDao.update(n);
+						}
+						
+					}
+					
+					if(x.getTsscTimecontrols() != null) {
+
+						for (TsscTimecontrol t : x.getTsscTimecontrols()) {
+							TsscTimecontrol n = new TsscTimecontrol();
+							n.setName(t.getName());
+							n.setTimeInterval(t.getTimeInterval());
+							n.setName(t.getName());
+							n.setAutostart(t.getAutostart());
+							n.setIntervalRunning(t.getIntervalRunning());
+							n.setTsscGame(game);
+							tcs.add(n);
+							timeControlDao.update(n);
+						}
+						
+					}
+					
+				}
+				if(topicDao.existById(game.getTsscTopic().getId())) {
+					gameDao.update(game);
+				}else {
+					check = false;
+				}
+			}
+		}
+		return check;
+	}
+	
 	
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -149,16 +213,29 @@ public class TsscGameServiceImp implements TsscGameService {
 		return gameDao.findAll();
 	}
 
-	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void deleteTsscGame(TsscGame tsscGame) {
-		gameDao.delete(tsscGame);
-	}
-
-
 
 	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(TsscGame game) {	
+		if(game.getTsscStories()!=null) {
+			for(int i=0; i< game.getTsscStories().size();i++) {
+				storyDao.delete(game.getTsscStories().get(i));
+			}
+		}
+		
+		if(game.getTsscTopic()!=null) {
+			topicDao.delete(game.getTsscTopic());
+		}
+		if(game.getTsscTimecontrols()!=null) {
+			for(int i=0; i< game.getTsscTimecontrols().size();i++) {
+				timeControlDao.delete(game.getTsscTimecontrols().get(i));
+			}
+		}
 		gameDao.delete(game);
 	}
+
+
+
+
 	
 }

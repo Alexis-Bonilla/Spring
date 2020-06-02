@@ -51,7 +51,7 @@
 								<td><a th:href="@{/games/del/{id}(id=${game.id})}"
 									class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
 								<td><span th:if=${!game.tsscStories.isEmpty()}> <a
-										th:href="@{/games/list/{id}(id=${game.id})}"
+										th:href="@{/games/list-stories/{id}(id=${game.id})}"
 										class="btn btn-primary"><i class="far fa-file-image"></i></a>
 
 								</span> <span th:if=${game.tsscStories.isEmpty()}>

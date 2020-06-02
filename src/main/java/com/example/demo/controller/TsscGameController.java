@@ -108,12 +108,12 @@ public class TsscGameController {
 	
 	@PostMapping("/games/edit/{id}")
 	public String updateGame(Model model, @PathVariable("id") Long id, @RequestParam(value = "action", required = true) String action , TsscGame tsscGame ,BindingResult bindingResult) {
-		if(action != null && !action.equals(" ")) {
+		if(action != null && !action.equals("Cancelar")) {
 			
 			if (tsscGame.getTsscTopic() == null) {
-				gameDelegate.save(tsscGame);
+				gameDelegate.update(id,tsscGame);
 			}else {
-				gameDelegate.save(tsscGame);
+				gameDelegate.update(id,tsscGame);
 				
 			}
 			

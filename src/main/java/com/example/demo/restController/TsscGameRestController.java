@@ -74,7 +74,7 @@ public class TsscGameRestController {
 			return ResponseEntity.notFound().build();
 		} 
 		game.setId(id);
-		gameService.save(game);
+		gameService.update(game);
 		return ResponseEntity.ok().build();
 	}
 	

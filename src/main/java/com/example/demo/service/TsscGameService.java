@@ -13,5 +13,6 @@ public interface TsscGameService {
 	boolean save2(TsscGame game, long id);
 	public Iterable<TsscGame> findAll();
 	public void delete(TsscGame game);
+	public boolean update (TsscGame game);
 	
 }
