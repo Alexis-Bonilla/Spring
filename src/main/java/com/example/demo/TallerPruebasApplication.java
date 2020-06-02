@@ -31,9 +31,11 @@ import com.example.demo.model.TsscStory;
 import com.example.demo.model.TsscTopic;
 import com.example.demo.service.TsscAdminService;
 import com.example.demo.service.TsscAdminServiceImp;
+import com.example.demo.service.TsscGameService;
 import com.example.demo.service.TsscGameServiceImp;
 import com.example.demo.service.TsscStoryService;
 import com.example.demo.service.TsscStoryServiceImp;
+import com.example.demo.service.TsscTopicService;
 import com.example.demo.service.TsscTopicServiceImp;
 
 import lombok.extern.java.Log;
@@ -58,8 +60,8 @@ public class TallerPruebasApplication {
 
 	
 	@Bean
-	public CommandLineRunner demo(TsscAdminServiceImp adminServiceImp, TsscTopicServiceImp topicServiceImp,
-			TsscGameServiceImp gameServiceImp, TsscStoryServiceImp storyServiceImp, TsscGameDaoImp gameDaoImp) {
+	public CommandLineRunner demo(TsscAdminService adminServiceImp, TsscTopicService topicServiceImp,
+			TsscGameService gameServiceImp, TsscStoryService storyServiceImp, TsscGameDao gameDaoImp) {
 		return (args) -> {
 
 			TsscAdmin user = new TsscAdmin();

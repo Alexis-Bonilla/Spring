@@ -14,6 +14,7 @@ public interface TsscTopicService {
 	public void clearTopics();
 	public Iterable<TsscTopic> findAll();
 	public void deleteTsscTopic(TsscTopic tsscTopic);
+	public boolean update(TsscTopic topic);
 	
 	
 }

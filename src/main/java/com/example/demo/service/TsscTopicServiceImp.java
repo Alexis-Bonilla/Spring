@@ -34,6 +34,19 @@ public class TsscTopicServiceImp implements TsscTopicService{
 		return check;
 	}
 	
+	
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public boolean update(TsscTopic topic) {
+		boolean check= (topic.getDefaultGroups()>0&&topic.getDefaultSprints()>0);
+		if(check && topic != null) {
+			topicDao.update(topic);
+		}
+		return check;
+	}
+	
+	
+	
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public TsscTopic findById(long id) {
@@ -83,6 +96,8 @@ public class TsscTopicServiceImp implements TsscTopicService{
 	public void deleteTsscTopic(TsscTopic tsscTopic) {
 		topicDao.delete(tsscTopic);
 	}
+
+
 	
 	
 	
