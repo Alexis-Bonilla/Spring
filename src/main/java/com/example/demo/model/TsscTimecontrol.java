@@ -2,7 +2,11 @@ package com.example.demo.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.example.demo.Validated.GameValidated;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
@@ -29,7 +33,9 @@ public class TsscTimecontrol implements Serializable {
 	@Column(name = "INTERVAL_RUNNING")
 	private BigDecimal intervalRunning;
 
+
 	@Column(name = "LAST_PLAY_TIME")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalTime lastPlayTime;
 
 	private String name;

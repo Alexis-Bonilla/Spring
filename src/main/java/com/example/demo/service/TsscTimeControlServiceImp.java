@@ -54,13 +54,16 @@ public class TsscTimeControlServiceImp implements TsscTimeControlService{
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(TsscTimecontrol t) {
 		if(t!=null)
-			timecontrolDao.save(t);
+			timecontrolDao.update(t);
 	}
 
 
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(TsscTimecontrol timecontrol) {
+
+		
+		
 		timecontrolDao.delete(timecontrol);
 		
 	}
