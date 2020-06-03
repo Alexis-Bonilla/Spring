@@ -33,7 +33,7 @@ public class TsscStoryController {
 	private TsscGameDelegate gameDelegate ;
 
 	@Autowired
-	TsscStoryDelegate storyDelegate;
+	private TsscStoryDelegate storyDelegate;
 	
 
 	
@@ -74,44 +74,13 @@ public class TsscStoryController {
 				return "stories/add-stories";
 			} else {
 				
-				log.info("ENTRA A LA PARTE DE GUARDAR LAS HISTORIAS");
-				
+	
 				TsscGame g = gameDelegate.findById(tsscStory.getTsscGame().getId());
-				log.info("Nombre del game de la historia "+ g.getName());
-				log.info("ID del game: "+ g.getId());
-				
-				log.info("añadimos la historia "+tsscStory.getDescription()+ " a la lista de historias del juego "+g.getName());
-				
-			
 				
 				gameDelegate.findById(tsscStory.getTsscGame().getId()).getTsscStories().add(tsscStory);		
 				storyDelegate.save(tsscStory);
 				
 			
-				
-				log.info("actualizamos el juego con la nueva historia");
-
-
-	/*			log.info("Validamos que se haya guardado la historia");
-				Iterable<TsscStory> s = gameDelegate.findById(g.getId()).getTsscStories();
-				
-				if(s!=null) {
-					log.info("LAS HISTORIAS NO SON NULAS");
-				
-	
-					for (TsscStory story : s) {
-						log.info( "Descripción de la historia : "+   story.getDescription());
-					}
-				
-					
-					
-				}
-				else {
-					log.info("LAS HISTORIAS SON NULLLL");
-				}
-				
-				
-				*/
 			
 				return "redirect:/stories/";
 			}

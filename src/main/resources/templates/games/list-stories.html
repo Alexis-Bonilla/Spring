@@ -51,7 +51,8 @@
 				</div>
 			</div>
 		</div>
-		<a th:href="@{/games/}" class="btn btn-outline-primary">Regresar <i class="fas fa-chevron-circle-left"></i></a>
+		<div th:switch="${tsscGame}" class="mx-5"><a th:href="@{/games/list/add/{id}(id=${tsscGame.id})}" class="btn btn-outline-primary">Agregar <i class="fas fa-plus"></i></a></div>
+		<div class="mx-5"><a th:href="@{/games/}" class="btn btn-outline-primary">Regresar <i class="fas fa-chevron-circle-left"></i></a></div>
 	</div>
 </body>
 </html>

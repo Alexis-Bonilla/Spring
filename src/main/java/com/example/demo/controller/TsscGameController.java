@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.delegate.TsscGameDelegate;
+import com.example.demo.delegate.TsscStoryDelegate;
 import com.example.demo.delegate.TsscTopicDelegate;
 import com.example.demo.model.TsscGame;
 import com.example.demo.model.TsscStory;
 import com.example.demo.service.TsscGameService;
 import com.example.demo.service.TsscGameServiceImp;
-
+import com.example.demo.service.TsscStoryService;
 import com.example.demo.service.TsscTopicServiceImp;
 
 import lombok.extern.java.Log;
@@ -29,10 +30,11 @@ public class TsscGameController {
 	@Autowired
 	TsscGameDelegate gameDelegate ;
 	@Autowired
-	TsscTopicDelegate topicDelegate;
+	private TsscTopicDelegate topicDelegate;
+
 	
 	@Autowired
-	TsscGameService gameService;
+	private TsscStoryDelegate storyDelegate;
 	
 	
 	@GetMapping("/games/")
@@ -98,6 +100,11 @@ public class TsscGameController {
 	}
 	
 	
+	@Autowired
+	private TsscGameService gameService;
+	
+	@Autowired
+	private TsscStoryService storyService;
 	
 	@GetMapping("/games/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") Long id, Model model) {
@@ -175,7 +182,48 @@ public class TsscGameController {
 		return "games/list-stories";
 	}
 
+	@GetMapping("/games/list/add/{id}")
+	public String addStory(@PathVariable("id") long id, Model model) {
+		TsscGame game = gameDelegate.findById(id);
+		TsscStory story =  new TsscStory();
+		story.setTsscGame(game);
+		model.addAttribute("tsscStory",story);
+		model.addAttribute("game", game);
+		return "games/story-game-add";
+	}
 	
+	@PostMapping("/games/list/add/{id}")
+	public String saveStory(  Model model,TsscStory tsscStory, BindingResult bindingResult,
+			@RequestParam(value = "action", required = true) String action) {
+
+		if (!action.equals("Cancelar")) {
+			if (bindingResult.hasErrors()) {
+
+				model.addAttribute("descriptionTsscStory", tsscStory.getDescription());
+				model.addAttribute("businessValueTsscStory", tsscStory.getBusinessValue());
+				model.addAttribute("initialSprintTsscStory", tsscStory.getInitialSprint());
+				model.addAttribute("priorityTsscStory", tsscStory.getPriority());
+				model.addAttribute("tsscGames",tsscStory.getTsscGame());
+
+				return "games/story-game-add";
+			} else {
+				
+	
+				TsscGame g = gameDelegate.findById(tsscStory.getTsscGame().getId());
+				
+				gameDelegate.findById(tsscStory.getTsscGame().getId()).getTsscStories().add(tsscStory);		
+				storyDelegate.save(tsscStory);
+				
+			
+			
+				return "redirect:/games/";
+			}
+		} else {
+			
+			return "redirect:/games/";
+		}
+
+	}
 
 		
 }
