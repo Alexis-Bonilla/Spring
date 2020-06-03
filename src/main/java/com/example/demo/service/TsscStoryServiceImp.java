@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import com.example.demo.dao.TsscTopicDao;
 import com.example.demo.model.TsscAcceptanceCriteria;
 import com.example.demo.model.TsscDeliverable;
 import com.example.demo.model.TsscStory;
-
 
 import lombok.extern.java.Log;
 
@@ -65,8 +65,14 @@ public class TsscStoryServiceImp implements TsscStoryService {
 					
 						log.info("NOMBRE DEL JUEGO DE LA HISTORIA : "+story.getTsscGame().getName());
 						
+						List<TsscStory> stories = story.getTsscGame().getTsscStories();
+						stories.add(story);
+						
+						gameDao.update(story.getTsscGame());
+						
 						
 						storyDao.save(story);
+						
 					}else {
 						log.info("NO EXISTE EL JUEGO ASOCIADO A LA HISTORIA");
 						check = false;

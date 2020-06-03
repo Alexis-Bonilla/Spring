@@ -17,6 +17,7 @@ import com.example.demo.delegate.TsscGameDelegate;
 import com.example.demo.delegate.TsscStoryDelegate;
 import com.example.demo.model.TsscGame;
 import com.example.demo.model.TsscStory;
+import com.example.demo.service.TsscGameService;
 import com.example.demo.service.TsscGameServiceImp;
 import com.example.demo.service.TsscStoryServiceImp;
 
@@ -34,6 +35,8 @@ public class TsscStoryController {
 	@Autowired
 	TsscStoryDelegate storyDelegate;
 	
+
+	
 	
 	
 	
@@ -42,6 +45,10 @@ public class TsscStoryController {
 		model.addAttribute("tsscStories", storyDelegate.findAll());
 		return "stories/index";
 	}
+	
+	
+	
+	
 	
 	@GetMapping("/stories/add")
 	public String addStory(Model model) {
@@ -75,6 +82,7 @@ public class TsscStoryController {
 				
 				log.info("añadimos la historia "+tsscStory.getDescription()+ " a la lista de historias del juego "+g.getName());
 				
+			
 				
 				gameDelegate.findById(tsscStory.getTsscGame().getId()).getTsscStories().add(tsscStory);		
 				storyDelegate.save(tsscStory);
@@ -113,6 +121,8 @@ public class TsscStoryController {
 		}
 
 	}
+	
+
 	
 	@GetMapping("/stories/edit/{id}")
 	public String showUpdateForm(Model model,@PathVariable("id") long id) {

@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.delegate.TsscGameDelegate;
 import com.example.demo.delegate.TsscTopicDelegate;
 import com.example.demo.model.TsscGame;
+import com.example.demo.model.TsscStory;
+import com.example.demo.service.TsscGameService;
 import com.example.demo.service.TsscGameServiceImp;
 
 import com.example.demo.service.TsscTopicServiceImp;
@@ -26,6 +30,9 @@ public class TsscGameController {
 	TsscGameDelegate gameDelegate ;
 	@Autowired
 	TsscTopicDelegate topicDelegate;
+	
+	@Autowired
+	TsscGameService gameService;
 	
 	
 	@GetMapping("/games/")
@@ -159,30 +166,16 @@ public class TsscGameController {
 		return "redirect:/games/";
 	}
 	
+	
 	@GetMapping("/games/list/{id}")
 	public String showListStories(@PathVariable("id") long id, Model model) {
-		TsscGame tsscGame = gameDelegate.findById(id);
-		log.info("ESTOY EN EL METODO DEL CONTROLADOR DE MOSTRAR LAS HISTORIAS DE UN JUEGO CON ID : "+ id);
-		log.info("NOMBRE DEL JUEGO: "+tsscGame.getName());
-		
-		log.info("TIENE HISTORIAS ASOCIADAS? ");
-	
-		if(tsscGame.getTsscStories()!=null) {
-			log.info("LA LISTA DE HISTORIAS NO ES NULA");
-			log.info("TAMAÑO DE LA LISTA DE HISTORIAS: "+tsscGame.getTsscStories().size());
-			
-			for (int i = 0; i < tsscGame.getTsscStories().size(); i++) {
-				log.info("HISTORIA NUMERO "+i+" "+tsscGame.getTsscStories().get(i).getDescription());
-			}
-		}
-		else {
-			log.info("LA LISTA DE HISTORIAS SI ES NULA :(");
-			
-		}
-		
+		TsscGame tsscGame = gameService.findById(id);
 		model.addAttribute("tsscGame", tsscGame);
 		model.addAttribute("stories", tsscGame.getTsscStories());
 		return "games/list-stories";
 	}
+
+	
+
 		
 }

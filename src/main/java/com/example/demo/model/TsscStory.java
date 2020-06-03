@@ -199,15 +199,6 @@ public class TsscStory implements Serializable {
 
 	public void setTsscGame(TsscGame tsscGame) {
 		this.tsscGame = tsscGame;
-		if(tsscGame.getTsscStories()!=null) {
-			tsscGame.getTsscStories().add(this);
-		}
-		else {
-			List<TsscStory> list = new ArrayList<TsscStory>();
-			list.add(this);
-			tsscGame.setTsscStories(list);
-		}
-
 	}
 	
 	public TsscTopic getTsscTopic() {
