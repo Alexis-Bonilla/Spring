@@ -192,8 +192,6 @@ public class TsscGameController {
 		story.setTsscGame(game);
 		model.addAttribute("tsscStory",story);
 		model.addAttribute("games", games);
-		model.addAttribute("tsscStory", story);
-		model.addAttribute("games", gameDelegate.findAll());
 		return "stories/add-story";
 	}
 	
