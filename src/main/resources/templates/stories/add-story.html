@@ -46,7 +46,7 @@
 								th:errors="*{description}" class="text-danger"> </span>
 						</div>
 						<div class="form-group col-md-6">
-							<label for="tsscGame" class="col-form-label">Escoga un juego *</label> <select
+							<label for="tsscGame" class="col-form-label">Escoga un juego</label> <select
 								class="form-control-range" th:field="*{tsscGame}">
 								<option th:each="gam : ${games}" th:value="${gam.id}"
 									class="form-control" th:text="${gam.name}"

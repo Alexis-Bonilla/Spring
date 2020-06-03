@@ -85,7 +85,6 @@
 						<div class="form-group col-md-6">
 							<label for="tsscGame" class="col-form-label">Seleccionar Game</label> <select
 								class="form-control-range" th:field="*{tsscGame}">
-								<option th:value="null">No Games</option>
 								<option th:each="game : ${games}" th:value="${game.id}"
 									class="form-control" th:text="${game.name}"
 									th:selected="${tsscTimecontrol.tsscGame=game}"></option>

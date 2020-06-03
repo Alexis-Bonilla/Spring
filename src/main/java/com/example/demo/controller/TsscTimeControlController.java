@@ -17,6 +17,7 @@ import com.example.demo.delegate.TsscGameDelegate;
 import com.example.demo.delegate.TsscTimeControlDelegate;
 import com.example.demo.model.TsscGame;
 import com.example.demo.model.TsscTimecontrol;
+import com.example.demo.service.TsscTimeControlService;
 
 @Controller
 public class TsscTimeControlController {
@@ -24,6 +25,7 @@ public class TsscTimeControlController {
 	private TsscTimeControlDelegate controlDelegate;
 	@Autowired
 	private TsscGameDelegate gameDelegate;
+
 	
 	@GetMapping("/timecontrol/")
 	public String index(Model model) {
@@ -52,6 +54,9 @@ public class TsscTimeControlController {
 		return "redirect:/timecontrol/";
 	}
 
+	@Autowired
+	private TsscTimeControlService tcs;
+	
 	@GetMapping("/timecontrol/edit/{id}")
 	public String edit(@PathVariable("id") long id, Model model) {
 		TsscTimecontrol time = controlDelegate.findById(id);
@@ -99,6 +104,17 @@ public class TsscTimeControlController {
 	public String remove(@PathVariable("id") long id) {
 		controlDelegate.delete(id);
 		return "redirect:/timecontrol/";
+	}
+	
+	@GetMapping("/timecontrol/game/{id}")
+	public String showListStories(@PathVariable("id") long id, Model model) {
+		TsscTimecontrol tssctc = controlDelegate.findById(id);
+		System.out.println("ID: "+tssctc.getTsscGame().getId());
+		System.out.println("Nombre: "+gameDelegate.findById(tssctc.getTsscGame().getId()).getName());
+		List<TsscGame> games = new ArrayList<>();
+		games.add(gameDelegate.findById(tssctc.getTsscGame().getId()));
+		model.addAttribute("tsscGames", games);
+		return "games/index";
 	}
 
 }
