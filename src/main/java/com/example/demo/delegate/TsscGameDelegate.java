@@ -63,4 +63,6 @@ public class TsscGameDelegate {
 	 public String getIdResource() {
 		 return idResource;
 	 }
+
+
 }

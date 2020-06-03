@@ -58,7 +58,7 @@
 							
 							
 								class="form-control-range" th:field="*{tsscGame}">
-								<option th:each="gam : ${games}" th:value="${gam.id}"
+								<option th:each="gam : ${tsscGames}" th:value="${gam.id}"
 									class="form-control" th:text="${gam.name}"
 									th:selected="${tsscStory.tsscGame==gam}"></option>
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.delegate.TsscGameDelegate;
 import com.example.demo.delegate.TsscTopicDelegate;
 import com.example.demo.model.TsscTopic;
 import com.example.demo.service.TsscTopicServiceImp;
@@ -26,6 +27,9 @@ public class TsscTopicController {
 
 	@Autowired
 	TsscTopicDelegate  topicDelegate;
+	
+	@Autowired 
+	TsscGameDelegate gameDelegate;
 	
 	
 	

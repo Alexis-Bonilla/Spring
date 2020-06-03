@@ -217,20 +217,19 @@ public class TsscGameServiceImp implements TsscGameService {
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(TsscGame game) {	
-		if(game.getTsscStories()!=null) {
-			for(int i=0; i< game.getTsscStories().size();i++) {
-				storyDao.delete(game.getTsscStories().get(i));
-			}
+
+		Iterable<TsscStory> stories = game.getTsscStories();
+		for (TsscStory tsscStory : stories) {
+			storyDao.delete(tsscStory);
 		}
 		
-		if(game.getTsscTopic()!=null) {
-			topicDao.delete(game.getTsscTopic());
+		Iterable<TsscTimecontrol> times = game.getTsscTimecontrols();
+		for (TsscTimecontrol tsscTimecontrol : times) {
+			timeControlDao.delete(tsscTimecontrol);
 		}
-		if(game.getTsscTimecontrols()!=null) {
-			for(int i=0; i< game.getTsscTimecontrols().size();i++) {
-				timeControlDao.delete(game.getTsscTimecontrols().get(i));
-			}
-		}
+		
+		game.setTsscTopic(null);
+			
 		gameDao.delete(game);
 	}
 

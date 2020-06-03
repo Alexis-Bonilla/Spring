@@ -8,7 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.dao.TsscGameDao;
+import com.example.demo.dao.TsscStoryDao;
+import com.example.demo.dao.TsscTimeControlDao;
 import com.example.demo.dao.TsscTopicDao;
+import com.example.demo.model.TsscGame;
+import com.example.demo.model.TsscStory;
+import com.example.demo.model.TsscTimecontrol;
 import com.example.demo.model.TsscTopic;
 import com.example.demo.repository.TsscTopicRepository;
 
@@ -18,10 +24,15 @@ public class TsscTopicServiceImp implements TsscTopicService{
 	
 	
 	private TsscTopicDao topicDao;
+	private TsscStoryDao storyDao;
+	private TsscTimeControlDao timeControlDao;
+
 	
 	@Autowired
-	public TsscTopicServiceImp(TsscTopicDao dao) {
+	public TsscTopicServiceImp(TsscTopicDao dao, TsscStoryDao storyDao, TsscTimeControlDao timeControlDao) {
 		this.topicDao=dao;
+		this.storyDao = storyDao;
+		this.timeControlDao = timeControlDao;
 	}
 	
 	@Override
@@ -94,6 +105,25 @@ public class TsscTopicServiceImp implements TsscTopicService{
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void deleteTsscTopic(TsscTopic tsscTopic) {
+		Iterable<TsscGame> games = tsscTopic.getTsscGames();
+		
+		for (TsscGame game : games) {
+			game.setTsscTopic(null);
+		}
+
+		Iterable<TsscStory> stories = tsscTopic.getTsscStories();
+	
+		for (TsscStory story : stories) {
+			story.setTsscTopic(null);
+		}
+		
+		Iterable<TsscTimecontrol> times = tsscTopic.getTsscTimecontrols();
+		for (TsscTimecontrol tsscTimecontrol : times) {
+			tsscTimecontrol.setTsscTopic(null);
+		}
+		
+		
+		
 		topicDao.delete(tsscTopic);
 	}
 

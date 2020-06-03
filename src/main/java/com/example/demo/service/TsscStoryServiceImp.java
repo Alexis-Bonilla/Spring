@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dao.TsscGameDao;
 import com.example.demo.dao.TsscStoryDao;
+import com.example.demo.dao.TsscTopicDao;
+import com.example.demo.model.TsscAcceptanceCriteria;
+import com.example.demo.model.TsscDeliverable;
 import com.example.demo.model.TsscStory;
 
 
@@ -25,11 +28,13 @@ public class TsscStoryServiceImp implements TsscStoryService {
 
 	private TsscStoryDao storyDao;
 	private TsscGameDao gameDao;
+	private TsscTopicDao topicDao;
 	
 	@Autowired
-	public TsscStoryServiceImp(TsscStoryDao repository, TsscGameDao gameDao) {
+	public TsscStoryServiceImp(TsscStoryDao repository, TsscGameDao gameDao, TsscTopicDao topicDao) {
 		this.storyDao= repository;
 		this.gameDao=gameDao;
+		this.topicDao=topicDao;
 
 		
 	}
@@ -122,6 +127,20 @@ public class TsscStoryServiceImp implements TsscStoryService {
 	
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void deleteTsscStory(TsscStory tsscStory) {
+		
+		Iterable<TsscAcceptanceCriteria> criterias =tsscStory.getTsscAcceptanceCriterias();
+		for (TsscAcceptanceCriteria a : criterias) {
+			a.setTsscStory(null);
+		}
+		Iterable<TsscDeliverable> deliverables = tsscStory.getTsscDeliverables();
+		for (TsscDeliverable deliverable : deliverables) {
+			deliverable.setTsscStory(null);
+		}
+		
+		
+		tsscStory.setTsscState(null);
+		
+		
 		storyDao.delete(tsscStory);
 	}
 

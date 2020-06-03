@@ -135,7 +135,7 @@ public class TsscStoryController {
 			@RequestParam(value = "action", required = true) String action,
 			 TsscStory tsscStory, BindingResult bindingResult, Model model) {
 
-		if (action.equals("Cancel")) {
+		if (action.equals("Cancelar")) {
 
 			return "redirect:/stories/";
 		}
@@ -151,10 +151,10 @@ public class TsscStoryController {
 			return "stories/update-story";
 		}
 
-		if (action != null && !action.equals("Cancel")) {
+		if (action != null && !action.equals("Cancelar")) {
 
 			try {
-				storyDelegate.save(tsscStory);
+				storyDelegate.update(tsscStory.getId(),tsscStory);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
