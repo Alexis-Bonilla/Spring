@@ -93,6 +93,7 @@ public class TsscGameController {
 				return "redirect:/games/";
 			}
 		} else {
+			
 
 			model.addAttribute("games", gameDelegate.findAll());
 			return "redirect:/games/";
