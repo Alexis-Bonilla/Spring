@@ -2,6 +2,9 @@ package com.example.demo.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.List;
@@ -50,11 +53,13 @@ public class TsscTimecontrol implements Serializable {
 	// bi-directional many-to-one association to TsscGame
 	@ManyToOne
 	@JoinColumn(name = "TSSC_GAME_ID")
+	@JsonIgnore
 	private TsscGame tsscGame;
 
 	// bi-directional many-to-one association to TsscTopic
 	@ManyToOne
 	@JoinColumn(name = "TSSC_TOPIC_ID")
+	@JsonIgnore
 	private TsscTopic tsscTopic;
 
 	public TsscTimecontrol() {

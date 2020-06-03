@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.dao.TsscGameDao;
 import com.example.demo.dao.TsscTimeControlDao;
 import com.example.demo.model.TsscTimecontrol;
 
@@ -14,7 +15,8 @@ import com.example.demo.model.TsscTimecontrol;
 @Scope("singleton")
 public class TsscTimeControlServiceImp implements TsscTimeControlService{
 
-	TsscTimeControlDao timecontrolDao;
+	private TsscTimeControlDao timecontrolDao;
+	private TsscGameDao gameDao;
 
 	@Autowired
 	public TsscTimeControlServiceImp(TsscTimeControlDao timecontrolDao) {
@@ -26,7 +28,42 @@ public class TsscTimeControlServiceImp implements TsscTimeControlService{
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(TsscTimecontrol t) {
-		timecontrolDao.save(t);
+		if(t!=null)
+			timecontrolDao.save(t);
+		
 		
 	}
+
+
+	@Override
+	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public TsscTimecontrol findById(long id) {
+		return timecontrolDao.findById(id);
+	}
+
+
+	@Override
+	@Transactional(readOnly=true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Iterable<TsscTimecontrol> findAll() {
+		return timecontrolDao.findAll();
+		
+	}
+
+
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void update(TsscTimecontrol t) {
+		if(t!=null)
+			timecontrolDao.save(t);
+	}
+
+
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void delete(TsscTimecontrol timecontrol) {
+		timecontrolDao.delete(timecontrol);
+		
+	}
+	
+	
 }

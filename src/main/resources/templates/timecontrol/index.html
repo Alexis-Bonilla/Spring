@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Cronogramas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+	<!--  th:switch="${timecontrols}" -->
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-12">
+
+				<div>
+					<center>
+						<h2 class=" text-primary">
+							Gestión de cronogramas</i>
+					</center>
+
+
+					<br>
+					<table class="table table-striped table-responsive-md">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Autoencendido</th>
+								<th>Orden</th>
+								<th>Intervalo de tiempo</th>
+								<th>Estado</th>
+								<th>Tiempo último juego</th>
+								<th>Tipo</th>
+								<th>Game</th>
+								<th>Editar</th>
+								<th>Borrar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="timecontrol : ${timecontrols}">
+								<td class="text-info" th:text="${timecontrol.name}"></td>
+								<td class="text-info" th:text="${timecontrol.autostart}"></td>
+								<td class="text-info" th:text="${timecontrol.order}"></td>
+								<td class="text-info" th:text="${timecontrol.timeInterval}"></td>
+								<td class="text-info" th:text="${timecontrol.state}"></td>
+								<td class="text-info" th:text="${timecontrol.lastPlayTime}"></td>
+								<td class="text-info" th:text="${timecontrol.type}"></td>
+
+								<td><span th:if=${timecontrol.tsscGame!=null}> <a
+										th:href="@{/games/edit/{id}(id=${timecontrol.tsscGame.id})}"
+										class="btn btn-primary"><i class="fas fa-gamepad"></i></a>
+
+								</span> <span th:if=${timecontrol.tsscGame==null}> <a
+										class="btn btn-secundary"><i class="fas fa-gamepad"></i></a>
+
+								</span></td>
+								
+								<td><a
+									th:href="@{/timecontrol/edit/{id}(id=${timecontrol.id})}"
+									class="btn btn-primary"><i class="far fa-edit"></i></a></td>
+								<td><a
+									th:href="@{/timecontrol/del/{id}(id=${timecontrol.id})}"
+									class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+					<div>
+						<p class="my-5">
+					
+							<a href="/timecontrol/add" class="btn btn-outline-primary">Agregar<i
+								class="fas fa-plus mx-2"></i></a> <a href="/"
+								
+								class="btn btn-outline-primary">Regresar<i
+								class="fas fa-chevron-circle-left mx-2"></i></a>
+						</p>
+					</div>
+
+
+
+				</div>
+			</div>
+
+		</div>
+</body>
+</html>

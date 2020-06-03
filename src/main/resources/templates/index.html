@@ -29,6 +29,10 @@
 					<a href="/topics/"><i class="fas fa-drum-steelpan"></i> Gestion
 						de temas</a>
 				</p>
+				<p sec:authorize="hasRole('superAdministrator')">
+					<a href="/timecontrol/"><i class="fas fa-calendar-alt"></i> Gestion
+						de Cronogramas</a>
+				</p>
 				<p>
 					<a href="/stories/"><i class="fab fa-stripe-s"></i> Gestion de
 						historias</a>

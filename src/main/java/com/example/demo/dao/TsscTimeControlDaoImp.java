@@ -35,13 +35,9 @@ public class TsscTimeControlDaoImp implements TsscTimeControlDao{
 	}
 
 	@Override
-	public Optional<TsscTimecontrol> findById(long id) {
-		TsscTimecontrol a = entityManager.find(TsscTimecontrol.class, id);
-		if(a!=null) {
-			return Optional.of(a);					
-		}
+	public TsscTimecontrol findById(long id) {
 		
-		return Optional.ofNullable(null);
+		return entityManager.find(TsscTimecontrol.class, id);
 	}
 
 	@Override
