@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -184,46 +185,19 @@ public class TsscGameController {
 
 	@GetMapping("/games/list/add/{id}")
 	public String addStory(@PathVariable("id") long id, Model model) {
+		List<TsscGame> games = new ArrayList<>();
 		TsscGame game = gameDelegate.findById(id);
 		TsscStory story =  new TsscStory();
+		games.add(game);
 		story.setTsscGame(game);
 		model.addAttribute("tsscStory",story);
-		model.addAttribute("game", game);
-		return "games/story-game-add";
+		model.addAttribute("games", games);
+		model.addAttribute("tsscStory", story);
+		model.addAttribute("games", gameDelegate.findAll());
+		return "stories/add-story";
 	}
 	
-	@PostMapping("/games/list/add/{id}")
-	public String saveStory(  Model model,TsscStory tsscStory, BindingResult bindingResult,
-			@RequestParam(value = "action", required = true) String action) {
-
-		if (!action.equals("Cancelar")) {
-			if (bindingResult.hasErrors()) {
-
-				model.addAttribute("descriptionTsscStory", tsscStory.getDescription());
-				model.addAttribute("businessValueTsscStory", tsscStory.getBusinessValue());
-				model.addAttribute("initialSprintTsscStory", tsscStory.getInitialSprint());
-				model.addAttribute("priorityTsscStory", tsscStory.getPriority());
-				model.addAttribute("tsscGames",tsscStory.getTsscGame());
-
-				return "games/story-game-add";
-			} else {
-				
 	
-				TsscGame g = gameDelegate.findById(tsscStory.getTsscGame().getId());
-				
-				gameDelegate.findById(tsscStory.getTsscGame().getId()).getTsscStories().add(tsscStory);		
-				storyDelegate.save(tsscStory);
-				
-			
-			
-				return "redirect:/games/";
-			}
-		} else {
-			
-			return "redirect:/games/";
-		}
-
-	}
 
 		
 }
