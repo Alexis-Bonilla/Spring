@@ -61,7 +61,7 @@ public class TsscGameController {
 	@PostMapping("/games/add")
 	public String saveGame( TsscGame tsscGame, BindingResult bindingResult, @RequestParam(value = "action", required = true) String action, Model model) {
 
-		if (!action.equals("Cancel")) {
+		if (!action.equals("Cancelar")) {
 			if (bindingResult.hasErrors()) {
 
 				model.addAttribute("nameTsscGame", tsscGame.getName());
@@ -95,7 +95,7 @@ public class TsscGameController {
 		} else {
 
 			model.addAttribute("games", gameDelegate.findAll());
-			return "games/index";
+			return "redirect:/games/";
 		}
 
 	}
