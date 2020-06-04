@@ -39,6 +39,7 @@ public class ConsultasController {
 	@PostMapping("/consultas/game")
 	public String filtrerGames(@RequestParam("initialDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initialDate, @RequestParam("finishDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishDate, Model model) {
 		List<TsscGame> filter = game.findByDateRange(initialDate, finishDate);
+		System.out.println("Cantidad games en filter: "+filter.size());
 		model.addAttribute("tsscGames", filter);
 		return "games/index";
 	}

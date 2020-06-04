@@ -78,14 +78,16 @@ public class TsscGameDaoImp implements TsscGameDao {
 			if (date!=null) {
 				System.out.println("hay date en:" +game.getName());
 				System.out.println("date1: "+date1.toString()+" & date2: "+date2.toString()+" & date: "+date.toString());
-				if (date.compareTo(date1)>=1 && date.compareTo(date2)<=0)
+				if (date.compareTo(date1)>=1 && date.compareTo(date2)<=0) {
 					System.out.println("Entraaaa");
 					found.add(game);
+				}
 			}
 			else {
 				System.out.println("No hay date en:" +game.getName());
 			}
 		}
+		System.out.println("Cantidad games en found: "+found.size());
 		return found;
 	}
 
