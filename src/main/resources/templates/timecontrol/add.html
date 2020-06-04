@@ -83,13 +83,11 @@
 						</div>
 						
 						<div class="form-group col-md-6">
-							<label for="tsscGame" class="col-form-label">Seleccionar Game</label> <select
+							<label for="tsscGame" class="col-form-label">Escoga un juego</label> <select
 								class="form-control-range" th:field="*{tsscGame}">
-								<option th:each="game : ${games}" th:value="${game.id}"
-									class="form-control" th:text="${game.name}"
-									th:selected="${tsscTimecontrol.tsscGame=game}"></option>
-							</select> <span th:if="${#fields.hasErrors('tsscGame')}"
-								th:errors="*{tsscGame}"></span>
+								<option th:each="gam : ${games}" th:value="${gam.id}"
+									class="form-control" th:text="${gam.name}"
+									th:selected="${tsscTimecontrol.tsscGame=gam}"></option>
 						</div>
 						
 						
