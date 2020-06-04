@@ -22,7 +22,7 @@ public interface TsscTopicDao {
 	public boolean existById(long id);
 	public TsscTopic findByName(String name);
 	public List<TsscTopic> findByDescription(String description);
-	public List<Object[]> findTopicsByGameDateOrderedByTime(LocalDate date);
+	public List<TsscTopic> findTopicsByGameDateOrderedByTime(LocalDate date);
 	public void deleteAll();
 	
 	

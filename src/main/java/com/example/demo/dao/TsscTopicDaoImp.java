@@ -68,13 +68,17 @@ public class TsscTopicDaoImp implements TsscTopicDao {
 	}
 
 	@Override
-	public List<Object[]> findTopicsByGameDateOrderedByTime(LocalDate date) {
-		String query = "SELECT a,b FROM TsscTopic a RIGHT JOIN TsscGame b ON a = b.tsscTopic" + " WHERE b.scheduledDate = :date GROUP BY(a.name), b.scheduledTime ORDER BY b.scheduledTime ASC";
-		Query q = entityManager.createQuery(query);
-		q.setParameter("date", date);
-		List<Object[]> results = q.getResultList();
+	public List<TsscTopic> findTopicsByGameDateOrderedByTime(LocalDate date) {
+		
+		String q = "SELECT b.tsscTopic FROM TsscGame b "
+				+ "WHERE b.id IN (SELECT a.id from TsscGame a WHERE a.scheduledDate = :date) "
+				+ "GROUP BY b.tsscTopic ORDER BY MAX(b.scheduledTime)";
+		Query query = entityManager.createQuery(q, TsscTopic.class);
+		query.setParameter("date", date);
+		@SuppressWarnings("unchecked")
+		List<TsscTopic> results = query.getResultList();
+		
 		return results;
-
 		
 	}
 

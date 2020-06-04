@@ -72,11 +72,21 @@ public class TsscGameDaoImp implements TsscGameDao {
 
 	@Override
 	public List<TsscGame> findByDateRange(LocalDate date1, LocalDate date2) {
-		String query = "SELECT t FROM TsscGame t where t.scheduledDate between :date1 and :date2";
-		Query q = entityManager.createQuery(query);
-		q.setParameter("date1", date1);
-		q.setParameter("date2", date2);
-		return q.getResultList();
+		List<TsscGame> found = new ArrayList<TsscGame>();
+		for (TsscGame game : findAll()) {
+			LocalDate date = game.getScheduledDate();
+			if (date!=null) {
+				System.out.println("hay date en:" +game.getName());
+				System.out.println("date1: "+date1.toString()+" & date2: "+date2.toString()+" & date: "+date.toString());
+				if (date.compareTo(date1)>=1 && date.compareTo(date2)<=0)
+					System.out.println("Entraaaa");
+					found.add(game);
+			}
+			else {
+				System.out.println("No hay date en:" +game.getName());
+			}
+		}
+		return found;
 	}
 
 	@Override
