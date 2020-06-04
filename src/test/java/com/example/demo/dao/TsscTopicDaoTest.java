@@ -235,9 +235,9 @@ LocalDate localDate1 = LocalDate.of(2020,3,2);
 		game2.setTsscTopic(topic2);
 		gameDao.save(game2);
 		
-		
-		TsscTopic resultTopic1  = (TsscTopic) topicDao.findTopicsByGameDateOrderedByTime(localDate1).get(1)[0];
-		TsscTopic resultTopic2  = (TsscTopic) topicDao.findTopicsByGameDateOrderedByTime(localDate1).get(0)[0];
+
+		TsscTopic resultTopic1  = topicDao.findTopicsByGameDateOrderedByTime(localDate1).get(1);
+		TsscTopic resultTopic2  = topicDao.findTopicsByGameDateOrderedByTime(localDate1).get(0);
 
 		
 		if(resultTopic1!=null && resultTopic2!=null) {
